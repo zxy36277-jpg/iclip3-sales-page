@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iClip 3.0 - 智能直播剪辑平台</title>
+    <style>
+        /* Apple Design System - Clean, Minimal, Functional */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Apple Color Palette */
+            --system-background: #000000;
+            --primary-background: #1c1c1e;
+            --secondary-background: #2c2c2e;
+            --tertiary-background: #3a3a3c;
+            --quaternary-background: #48484a;
+            
+            --label-primary: #ffffff;
+            --label-secondary: rgba(255, 255, 255, 0.6);
+            --label-tertiary: rgba(255, 255, 255, 0.3);
+            
+            --system-blue: #007AFF;
+            --system-green: #34C759;
+            --system-indigo: #5856D6;
+            --system-purple: #AF52DE;
+            --system-teal: #5AC8FA;
+            
+            /* Apple Typography Scale */
+            --large-title: 600 34px/41px -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --title1: 400 28px/34px -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --title2: 400 22px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --title3: 400 20px/25px -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --headline: 600 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --body: 400 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --callout: 400 16px/21px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --subheadline: 400 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --footnote: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --caption1: 400 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --caption2: 400 11px/13px -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            
+            /* Apple Spacing System */
+            --spacing-xs: 4px;
+            --spacing-s: 8px;
+            --spacing-m: 16px;
+            --spacing-l: 24px;
+            --spacing-xl: 32px;
+            --spacing-xxl: 48px;
+            --spacing-xxxl: 64px;
+            
+            /* Apple Border Radius */
+            --radius-s: 6px;
+            --radius-m: 12px;
+            --radius-l: 16px;
+            --radius-xl: 20px;
+            
+            /* Apple Shadows */
+            --shadow-s: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+            --shadow-m: 0 4px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.24);
+            --shadow-l: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+        }
+        
+        /* Base Styles */
+        body {
+            background-color: var(--system-background);
+            color: var(--label-primary);
+            font: var(--body);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+        
+        /* Container System */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-l);
+        }
+        
+        .container-wide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-l);
+        }
+        
+        /* Section Spacing */
+        section {
+            padding: var(--spacing-xxxl) 0;
+        }
+        
+        /* Hero Section - Apple Style */
+        .hero {
+            background: linear-gradient(180deg, var(--system-background) 0%, var(--primary-background) 100%);
+            padding: 120px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, var(--system-blue) 0%, transparent 70%);
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-title {
+            font: var(--large-title);
+            font-size: clamp(36px, 6vw, 64px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-l);
+            background: linear-gradient(135deg, var(--system-blue), var(--system-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .hero-subtitle {
+            font: var(--title3);
+            color: var(--label-secondary);
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+            line-height: 1.4;
+        }
+        
+        /* Button System - Apple Style */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font: var(--callout);
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            border: none;
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: var(--system-blue);
+            color: white;
+            box-shadow: var(--shadow-s);
+        }
+        
+        .btn-primary:hover {
+            background: #0051D5;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-m);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--label-primary);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        /* Card System */
+        .card {
+            background: var(--primary-background);
+            border-radius: var(--radius-l);
+            padding: var(--spacing-xl);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-l);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius-l);
+            background: linear-gradient(135deg, var(--system-blue), var(--system-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: var(--spacing-l);
+        }
+        
+        .card-title {
+            font: var(--headline);
+            margin-bottom: var(--spacing-m);
+            color: var(--label-primary);
+        }
+        
+        .card-description {
+            font: var(--body);
+            color: var(--label-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: var(--spacing-l);
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        /* Section Titles */
+        .section-title {
+            font: var(--title1);
+            font-size: clamp(28px, 4vw, 48px);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            text-align: center;
+            margin-bottom: var(--spacing-l);
+        }
+        
+        .section-subtitle {
+            font: var(--title3);
+            color: var(--label-secondary);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto var(--spacing-xl);
+            line-height: 1.4;
+        }
+        
+        /* Image Styles */
+        .image-container {
+            border-radius: var(--radius-l);
+            overflow: hidden;
+            box-shadow: var(--shadow-m);
+        }
+        
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        /* Feature Showcase */
+        .feature-showcase {
+            background: var(--primary-background);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .feature-item {
+            text-align: center;
+        }
+        
+        .feature-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-m);
+            margin: 0 auto var(--spacing-l);
+            background: var(--secondary-background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .feature-image img {
+            max-width: 60px;
+            max-height: 60px;
+            object-fit: contain;
+        }
+        
+        /* Problem Section */
+        .problems {
+            background: var(--secondary-background);
+        }
+        
+        .problem-card {
+            background: rgba(255, 59, 48, 0.1);
+            border: 1px solid rgba(255, 59, 48, 0.2);
+            border-radius: var(--radius-l);
+            padding: var(--spacing-l);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 59, 48, 0.3);
+        }
+        
+        .problem-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-m);
+        }
+        
+        .problem-title {
+            font: var(--headline);
+            margin-bottom: var(--spacing-s);
+            color: #FF3B30;
+        }
+        
+        .problem-text {
+            font: var(--callout);
+            color: var(--label-secondary);
+        }
+        
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(180deg, var(--primary-background) 0%, var(--secondary-background) 100%);
+        }
+        
+        .solution-card {
+            background: rgba(0, 122, 255, 0.1);
+            border: 1px solid rgba(0, 122, 255, 0.2);
+            border-radius: var(--radius-l);
+            padding: var(--spacing-xl);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 122, 255, 0.4);
+            box-shadow: var(--shadow-m);
+        }
+        
+        .solution-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--system-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font: var(--headline);
+            margin: 0 auto var(--spacing-l);
+        }
+        
+        /* Process Section */
+        .process-section {
+            background: var(--tertiary-background);
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-l);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .process-step:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .process-content {
+            flex: 1;
+        }
+        
+        .process-image {
+            flex: 1;
+            border-radius: var(--radius-l);
+            overflow: hidden;
+            box-shadow: var(--shadow-m);
+        }
+        
+        /* Stats Section */
+        .stats {
+            background: var(--system-background);
+            text-align: center;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-xl);
+        }
+        
+        .stat-item {
+            padding: var(--spacing-l);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--system-blue);
+            margin-bottom: var(--spacing-s);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font: var(--callout);
+            color: var(--label-secondary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--system-blue), var(--system-indigo));
+            text-align: center;
+            color: white;
+        }
+        
+        .cta-title {
+            font: var(--title1);
+            font-size: clamp(24px, 4vw, 36px);
+            margin-bottom: var(--spacing-l);
+        }
+        
+        .cta-text {
+            font: var(--title3);
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-xl);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--primary-background);
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-m);
+        }
+        
+        .footer-logo {
+            font: var(--headline);
+            color: var(--label-primary);
+        }
+        
+        .footer-text {
+            font: var(--callout);
+            color: var(--label-secondary);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container,
+            .container-wide {
+                padding: 0 var(--spacing-m);
+            }
+            
+            section {
+                padding: var(--spacing-xxl) 0;
+            }
+            
+            .hero {
+                padding: var(--spacing-xxxl) 0;
+            }
+            
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .card {
+                padding: var(--spacing-l);
+            }
+        }
+        
+        /* Dark mode support */
+        @media (prefers-color-scheme: light) {
+            :root {
+                --system-background: #ffffff;
+                --primary-background: #f2f2f7;
+                --secondary-background: #ffffff;
+                --tertiary-background: #f2f2f7;
+                --label-primary: #000000;
+                --label-secondary: rgba(0, 0, 0, 0.6);
+                --label-tertiary: rgba(0, 0, 0, 0.3);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate-on-scroll">iClip 3.0<br>智能直播剪辑平台</h1>
+                <p class="hero-subtitle animate-on-scroll">基于多模态大模型的智能短视频创作平台<br>为电商直播打造高效内容生产流水线</p>
+                
+                <div class="animate-on-scroll" style="margin-bottom: 48px;">
+                    <a href="#contact" class="btn btn-primary" style="margin-right: 16px;">立即体验</a>
+                    <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn btn-secondary">查看文档</a>
+                </div>
+                
+                <div class="image-container animate-on-scroll">
+                    <img src="产品全景图.png" alt="iClip 3.0 产品全景" style="border-radius: 20px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">传统短视频制作的痛点</h2>
+            <p class="section-subtitle animate-on-scroll">传统制作方式已无法满足现代电商营销的高效需求</p>
+            
+            <div class="grid grid-4">
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">⏰</div>
+                    <h3 class="problem-title">效率低下</h3>
+                    <p class="problem-text">传统制作方式一天只能产出3-5条视频，无法满足高频内容需求</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">💰</div>
+                    <h3 class="problem-title">成本高昂</h3>
+                    <p class="problem-text">需要大量人力投入直播场控、视频剪辑、内容运营等环节</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">🎯</div>
+                    <h3 class="problem-title">质量参差</h3>
+                    <p class="problem-text">人工制作导致视频质量不稳定，缺乏统一标准和品牌一致性</p>
+                </div>
+                
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">📊</div>
+                    <h3 class="problem-title">数据缺失</h3>
+                    <p class="problem-text">缺乏数据分析指导，无法优化内容策略和提升转化效果</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">iClip 3.0 的智能解决方案</h2>
+            <p class="section-subtitle animate-on-scroll">多模态大模型和多智能体协同，实现真正的智能化内容创作</p>
+            
+            <div class="image-container animate-on-scroll" style="margin: 48px 0;">
+                <img src="技术.png" alt="多模态大模型技术架构">
+            </div>
+            
+            <div class="grid grid-4">
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-number">1</div>
+                    <h3 class="card-title">多模态信息感知</h3>
+                    <p class="card-description">全面解析直播内容中的视觉、听觉和语言信息，为智能剪辑提供丰富数据基础</p>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-number">2</div>
+                    <h3 class="card-title">智能体协同工作</h3>
+                    <p class="card-description">多个智能体协同工作，每个负责特定任务，通过智能调度系统实现高效协作</p>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-number">3</div>
+                    <h3 class="card-title">智能剪辑生成</h3>
+                    <p class="card-description">自动识别直播高光时刻，智能组合片段、添加特效、生成文案和背景音乐</p>
+                </div>
+                
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-number">4</div>
+                    <h3 class="card-title">多渠道智能发布</h3>
+                    <p class="card-description">自动适配视频格式、长度和风格，实现一键多平台发布，数据分析持续优化</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Showcase -->
+    <section class="feature-showcase">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">核心功能特色</h2>
+            <p class="section-subtitle animate-on-scroll">四大核心功能，全方位提升您的短视频创作效率</p>
+            
+            <div class="feature-grid">
+                <div class="feature-item animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="功能一.png" alt="智能内容处理">
+                    </div>
+                    <h3 class="card-title">智能内容处理</h3>
+                    <p class="card-description">AI驱动的内容识别与处理，自动提取高光片段</p>
+                </div>
+                
+                <div class="feature-item animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="功能2.png" alt="直播内容识别">
+                    </div>
+                    <h3 class="card-title">直播内容识别</h3>
+                    <p class="card-description">实时分析直播内容，智能识别关键时刻和话题</p>
+                </div>
+                
+                <div class="feature-item animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="功能3.png" alt="素材资源管理">
+                    </div>
+                    <h3 class="card-title">素材资源管理</h3>
+                    <p class="card-description">统一管理所有素材资源，便于快速查找和使用</p>
+                </div>
+                
+                <div class="feature-item animate-on-scroll">
+                    <div class="feature-image">
+                        <img src="功能4.png" alt="商品分类管理">
+                    </div>
+                    <h3 class="card-title">商品分类管理</h3>
+                    <p class="card-description">智能商品分类，精准匹配相关内容和标签</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">简单四步，高效创作</h2>
+            <p class="section-subtitle animate-on-scroll">从直播接入到内容发布，全程自动化完成</p>
+            
+            <div class="image-container animate-on-scroll" style="margin: 48px 0;">
+                <img src="工作流程.png" alt="iClip 3.0 工作流程">
+            </div>
+            
+            <div class="process-step animate-on-scroll">
+                <div class="process-content">
+                    <h3 class="card-title">1. 接入直播流</h3>
+                    <p class="card-description">一键接入主流直播平台，支持多种推流方式，实时同步直播内容</p>
+                </div>
+                <div class="process-image">
+                    <img src="直播录制界面.png" alt="直播推流界面">
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll">
+                <div class="process-content">
+                    <h3 class="card-title">2. 智能内容分析</h3>
+                    <p class="card-description">AI实时分析直播内容，识别高光时刻，智能分段拆解</p>
+                </div>
+                <div class="process-image">
+                    <img src="wechat_2025-08-26_181811_508.png" alt="智能分段拆解">
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll">
+                <div class="process-content">
+                    <h3 class="card-title">3. 自动剪辑成片</h3>
+                    <p class="card-description">智能体自动完成剪辑、特效添加、文案生成等所有后期工作</p>
+                </div>
+                <div class="process-image">
+                    <img src="WX20250422-194231@2x.png" alt="自动剪辑成片">
+                </div>
+            </div>
+            
+            <div class="process-step animate-on-scroll">
+                <div class="process-content">
+                    <h3 class="card-title">4. 多平台发布</h3>
+                    <p class="card-description">一键发布至多个平台，自动适配格式，支持定时发布和智能挂车</p>
+                </div>
+                <div class="process-image">
+                    <img src="发布功能界面.png" alt="多平台发布界面">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">数据说话，效果显著</h2>
+            <p class="section-subtitle animate-on-scroll">已帮助众多企业实现短视频营销突破</p>
+            
+            <div class="image-container animate-on-scroll" style="margin: 48px 0;">
+                <img src="案例墙.png" alt="客户成功案例">
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">300%</div>
+                    <div class="stat-label">品牌曝光量增长</div>
+                </div>
+                
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">8x</div>
+                    <div class="stat-label">内容制作效率提升</div>
+                </div>
+                
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">500</div>
+                    <div class="stat-label">日产视频数量</div>
+                </div>
+                
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">制作成本节约</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2 class="cta-title animate-on-scroll">开启您的智能营销之旅</h2>
+            <p class="cta-text animate-on-scroll">联系我们的专业团队，获取个性化解决方案</p>
+            
+            <div class="animate-on-scroll" style="margin-bottom: 48px;">
+                <a href="#contact" class="btn" style="background: white; color: var(--system-blue); margin-right: 16px;">立即咨询</a>
+                <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn" style="background: rgba(255, 255, 255, 0.2); color: white;">查看详细文档</a>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; padding: 32px; background: rgba(255, 255, 255, 0.1); border-radius: 16px; backdrop-filter: blur(20px);">
+                <div class="animate-on-scroll">
+                    <div style="font: var(--callout); opacity: 0.8; margin-bottom: 8px;">大客户经理</div>
+                    <div style="font: var(--headline); color: white;">xiaoyan</div>
+                </div>
+                <div class="animate-on-scroll">
+                    <div style="font: var(--callout); opacity: 0.8; margin-bottom: 8px;">联系电话</div>
+                    <div style="font: var(--headline); color: white;">131-6238-5783</div>
+                </div>
+                <div class="animate-on-scroll">
+                    <div style="font: var(--callout); opacity: 0.8; margin-bottom: 8px;">邮箱地址</div>
+                    <div style="font: var(--headline); color: white;">zhouxiaoyan@infimind.com</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">iClip 3.0 - 智能直播剪辑平台</div>
+                <div class="footer-text">极睿科技 infimind - AIGC赋予零售全新可能</div>
+                <div style="display: flex; gap: 24px; flex-wrap: wrap; justify-content: center;">
+                    <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" style="color: var(--label-secondary); text-decoration: none;">产品文档</a>
+                    <a href="https://www.infimind.com" target="_blank" style="color: var(--label-secondary); text-decoration: none;">官方网站</a>
+                </div>
+                <div style="font: var(--caption1); color: var(--label-tertiary); margin-top: 16px;">&copy; 2025 极睿科技. 保留所有权利.</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero::before');
+            const rate = scrolled * -0.5;
+            
+            // Apply parallax to hero background
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Button click effects
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iClip 3.0 - 智能直播剪辑平台</title>
+    <style>
+        /* Apple Design System - Perfected Version */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            /* Apple System Colors */
+            --system-background: #000000;
+            --system-background-secondary: #1c1c1e;
+            --system-background-tertiary: #2c2c2e;
+            --system-grouped-background: #000000;
+            --system-grouped-background-secondary: #1c1c1e;
+            --system-grouped-background-tertiary: #2c2c2e;
+            
+            --label-primary: #ffffff;
+            --label-secondary: rgba(255, 255, 255, 0.6);
+            --label-tertiary: rgba(255, 255, 255, 0.3);
+            --label-quaternary: rgba(255, 255, 255, 0.18);
+            
+            --separator: rgba(255, 255, 255, 0.2);
+            --opaque-separator: rgba(255, 255, 255, 0.1);
+            
+            --system-blue: #007AFF;
+            --system-blue-light: #5AC8FA;
+            --system-indigo: #5856D6;
+            --system-purple: #AF52DE;
+            --system-teal: #5AC8FA;
+            --system-mint: #00C7BE;
+            --system-green: #34C759;
+            --system-yellow: #FFCC00;
+            --system-orange: #FF9500;
+            --system-red: #FF3B30;
+            
+            --fill-primary: rgba(255, 255, 255, 0.2);
+            --fill-secondary: rgba(255, 255, 255, 0.16);
+            --fill-tertiary: rgba(255, 255, 255, 0.12);
+            --fill-quaternary: rgba(255, 255, 255, 0.08);
+            
+            /* Apple Typography Scale */
+            --large-title: 600 clamp(28px, 5vw, 34px)/1.2 -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --title1: 400 clamp(22px, 4vw, 28px)/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --title2: 400 clamp(18px, 3.5vw, 22px)/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --title3: 400 clamp(16px, 3vw, 20px)/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif;
+            --headline: 600 17px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --body: 400 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --callout: 400 16px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --subheadline: 400 15px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --footnote: 400 13px/1.4 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --caption1: 400 12px/1.3 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+            --caption2: 400 11px/1.2 -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+        }
+        
+        /* Base Styles */
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+        
+        body {
+            font: var(--body);
+            color: var(--label-primary);
+            background: var(--system-background);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+        
+        /* Container System */
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 4vw, 40px);
+        }
+        
+        .container-wide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 4vw, 40px);
+        }
+        
+        /* Section Spacing */
+        section {
+            padding: clamp(60px, 12vw, 120px) 0;
+        }
+        
+        .section-compact {
+            padding: clamp(40px, 8vw, 80px) 0;
+        }
+        
+        /* Typography */
+        h1, .hero-title {
+            font: var(--large-title);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            color: var(--label-primary);
+        }
+        
+        h2, .section-title {
+            font: var(--title1);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            color: var(--label-primary);
+            text-align: center;
+            margin-bottom: clamp(16px, 3vw, 24px);
+        }
+        
+        h3, .card-title {
+            font: var(--title3);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: var(--label-primary);
+            margin-bottom: clamp(8px, 1.5vw, 12px);
+        }
+        
+        p, .section-subtitle {
+            font: var(--body);
+            color: var(--label-secondary);
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto clamp(32px, 6vw, 48px);
+        }
+        
+        /* Button System */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font: var(--callout);
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            outline: none;
+            user-select: none;
+            white-space: nowrap;
+        }
+        
+        .btn-large {
+            padding: 16px 32px;
+            border-radius: 24px;
+            font-size: 17px;
+        }
+        
+        .btn-medium {
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 16px;
+        }
+        
+        .btn-small {
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-size: 15px;
+        }
+        
+        .btn-primary {
+            background: var(--system-blue);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 122, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: var(--fill-quaternary);
+            color: var(--label-primary);
+            border: 1px solid var(--separator);
+            backdrop-filter: blur(20px);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--fill-tertiary);
+            border-color: var(--system-blue);
+            transform: translateY(-2px);
+        }
+        
+        /* Grid System */
+        .grid {
+            display: grid;
+            gap: clamp(20px, 4vw, 32px);
+        }
+        
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        }
+        
+        .grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+        
+        /* Card System */
+        .card {
+            background: var(--system-background-secondary);
+            border-radius: 16px;
+            padding: clamp(20px, 4vw, 32px);
+            border: 1px solid var(--separator);
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: var(--system-blue);
+        }
+        
+        .card-light {
+            background: rgba(255, 255, 255, 0.95);
+            color: #1d1d1f;
+            backdrop-filter: blur(20px);
+        }
+        
+        .card-light h3 {
+            color: #1d1d1f;
+        }
+        
+        .card-light p {
+            color: #6e6e73;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(ellipse at top, var(--system-background-secondary) 0%, var(--system-background) 60%);
+            text-align: center;
+            padding: clamp(80px, 15vw, 160px) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 20%, rgba(0, 122, 255, 0.1) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: clamp(32px, 6vw, 48px) 0;
+        }
+        
+        .hero-image {
+            margin-top: clamp(48px, 8vw, 80px);
+            position: relative;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            max-width: 900px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(16px, 3vw, 24px);
+            margin-top: clamp(32px, 6vw, 48px);
+        }
+        
+        .feature-item {
+            text-align: center;
+            padding: clamp(16px, 3vw, 24px);
+            border-radius: 12px;
+            background: var(--fill-quaternary);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background: var(--fill-tertiary);
+            transform: translateY(-2px);
+        }
+        
+        .feature-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+        
+        .feature-item h4 {
+            font: var(--headline);
+            color: var(--label-primary);
+            margin-bottom: 8px;
+        }
+        
+        .feature-item p {
+            font: var(--callout);
+            color: var(--label-secondary);
+        }
+        
+        /* Problem/Solution Cards */
+        .problem-card {
+            background: linear-gradient(135deg, rgba(255, 59, 48, 0.1), rgba(255, 59, 48, 0.05));
+            border: 1px solid rgba(255, 59, 48, 0.2);
+            border-radius: 16px;
+            padding: clamp(20px, 4vw, 32px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(255, 59, 48, 0.4);
+        }
+        
+        .problem-icon {
+            font-size: clamp(48px, 8vw, 64px);
+            margin-bottom: 16px;
+            opacity: 0.8;
+        }
+        
+        .problem-title {
+            font: var(--headline);
+            color: var(--system-red);
+            margin-bottom: 12px;
+        }
+        
+        .problem-text {
+            font: var(--callout);
+            color: var(--label-secondary);
+        }
+        
+        /* Solution Cards */
+        .solution-card {
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 122, 255, 0.05));
+            border: 1px solid rgba(0, 122, 255, 0.2);
+            border-radius: 16px;
+            padding: clamp(20px, 4vw, 32px);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .solution-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(0, 122, 255, 0.4);
+        }
+        
+        .solution-number {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--system-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font: var(--headline);
+            margin: 0 auto 16px;
+        }
+        
+        /* Step Flow */
+        .step-flow {
+            display: flex;
+            align-items: center;
+            gap: clamp(20px, 4vw, 40px);
+            margin: clamp(40px, 8vw, 80px) 0;
+        }
+        
+        .step-flow:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .step-content {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .step-image {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .step-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Comparison Cards */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: clamp(24px, 4vw, 32px);
+            margin-top: clamp(32px, 6vw, 48px);
+        }
+        
+        .comparison-card {
+            background: var(--card-light);
+            border-radius: 16px;
+            padding: clamp(24px, 4vw, 32px);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .comparison-card.highlight {
+            background: var(--system-background-secondary);
+            border: 2px solid var(--system-blue);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 122, 255, 0.2);
+        }
+        
+        .comparison-card.highlight::before {
+            content: '推荐';
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--system-blue);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font: var(--caption1);
+            font-weight: 600;
+        }
+        
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: clamp(24px, 4vw, 40px);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: clamp(36px, 8vw, 48px);
+            font-weight: 700;
+            color: var(--system-blue);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font: var(--callout);
+            color: var(--label-secondary);
+        }
+        
+        /* CTA Section */
+        .cta {
+            background: linear-gradient(135deg, var(--system-blue), var(--system-indigo));
+            text-align: center;
+            color: white;
+        }
+        
+        .cta h2 {
+            color: white;
+        }
+        
+        .cta p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: clamp(20px, 4vw, 32px);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: clamp(24px, 4vw, 32px);
+            margin-top: clamp(32px, 6vw, 48px);
+            backdrop-filter: blur(20px);
+        }
+        
+        .contact-item h4 {
+            font: var(--callout);
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4px;
+        }
+        
+        .contact-item p {
+            font: var(--headline);
+            color: white;
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--system-background-tertiary);
+            text-align: center;
+            padding: clamp(40px, 8vw, 60px) 0;
+            border-top: 1px solid var(--separator);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: clamp(20px, 4vw, 32px);
+            margin: 16px 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            font: var(--callout);
+            color: var(--label-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--system-blue);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            opacity: 0;
+            animation: fadeInUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        /* Image Styles */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .step-flow {
+                flex-direction: column !important;
+                text-align: center;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .grid-2,
+            .grid-3,
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            section {
+                padding: clamp(40px, 8vw, 60px) 0;
+            }
+            
+            .container,
+            .container-wide {
+                padding: 0 16px;
+            }
+        }
+        
+        /* Dark mode refinements */
+        @media (prefers-color-scheme: light) {
+            :root {
+                --system-background: #ffffff;
+                --system-background-secondary: #f2f2f7;
+                --system-background-tertiary: #ffffff;
+                --system-grouped-background: #f2f2f7;
+                --system-grouped-background-secondary: #ffffff;
+                --system-grouped-background-tertiary: #f2f2f7;
+                
+                --label-primary: #000000;
+                --label-secondary: rgba(60, 60, 67, 0.6);
+                --label-tertiary: rgba(60, 60, 67, 0.3);
+                --label-quaternary: rgba(60, 60, 67, 0.18);
+                
+                --separator: rgba(60, 60, 67, 0.36);
+                --opaque-separator: rgba(60, 60, 67, 0.2);
+                
+                --fill-primary: rgba(120, 120, 128, 0.2);
+                --fill-secondary: rgba(120, 120, 128, 0.16);
+                --fill-tertiary: rgba(120, 120, 128, 0.12);
+                --fill-quaternary: rgba(120, 120, 128, 0.08);
+            }
+            
+            .hero {
+                background: radial-gradient(ellipse at top, var(--system-background-secondary) 0%, var(--system-background) 60%);
+            }
+            
+            .card-light {
+                background: var(--system-background-secondary);
+                color: var(--label-primary);
+            }
+            
+            .card-light h3 {
+                color: var(--label-primary);
+            }
+            
+            .card-light p {
+                color: var(--label-secondary);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title animate-in">iClip 3.0<br>智能直播剪辑平台</h1>
+                <p class="section-subtitle animate-in">基于多模态大模型的智能短视频创作平台<br>为电商直播打造高效内容生产流水线</p>
+                
+                <div class="hero-buttons animate-in">
+                    <a href="#contact" class="btn btn-primary btn-large">立即体验</a>
+                    <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn btn-secondary btn-large">查看文档</a>
+                </div>
+                
+                <div class="hero-image animate-in">
+                    <img src="产品全景图.png" alt="iClip 3.0 产品全景">
+                </div>
+                
+                <!-- Feature Preview -->
+                <div class="feature-grid animate-in">
+                    <div class="feature-item">
+                        <img src="功能一.png" alt="智能内容处理">
+                        <h4>智能内容处理</h4>
+                        <p>AI驱动的内容识别与处理</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="功能2.png" alt="直播内容识别">
+                        <h4>直播内容识别</h4>
+                        <p>实时分析直播内容</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="功能3.png" alt="素材资源管理">
+                        <h4>素材资源管理</h4>
+                        <p>统一管理所有素材资源</p>
+                    </div>
+                    <div class="feature-item">
+                        <img src="功能4.png" alt="商品分类管理">
+                        <h4>商品分类管理</h4>
+                        <p>智能商品分类管理</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title animate-in">传统短视频制作的痛点</h2>
+            <p class="section-subtitle animate-in">传统制作方式已无法满足现代电商营销的高效需求</p>
+            
+            <div class="grid grid-4">
+                <div class="problem-card animate-in">
+                    <div class="problem-icon">⏰</div>
+                    <h3 class="problem-title">效率低下</h3>
+                    <p class="problem-text">传统制作方式一天只能产出3-5条视频，无法满足高频内容需求</p>
+                </div>
+                <div class="problem-card animate-in">
+                    <div class="problem-icon">💰</div>
+                    <h3 class="problem-title">成本高昂</h3>
+                    <p class="problem-text">需要大量人力投入直播场控、视频剪辑、内容运营等环节</p>
+                </div>
+                <div class="problem-card animate-in">
+                    <div class="problem-icon">🎯</div>
+                    <h3 class="problem-title">质量参差</h3>
+                    <p class="problem-text">人工制作导致视频质量不稳定，缺乏统一标准和品牌一致性</p>
+                </div>
+                <div class="problem-card animate-in">
+                    <div class="problem-icon">📊</div>
+                    <h3 class="problem-title">数据缺失</h3>
+                    <p class="problem-text">缺乏数据分析指导，无法优化内容策略和提升转化效果</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section style="background: var(--system-background-secondary);">
+        <div class="container">
+            <h2 class="section-title animate-in">iClip 3.0 的智能解决方案</h2>
+            <p class="section-subtitle animate-in">多模态大模型和多智能体协同，实现真正的智能化内容创作</p>
+            
+            <div class="animate-in" style="text-align: center; margin-bottom: 48px;">
+                <img src="技术.png" alt="多模态大模型技术架构" style="border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);">
+            </div>
+            
+            <div class="grid grid-4">
+                <div class="solution-card animate-in">
+                    <div class="solution-number">1</div>
+                    <h3>多模态信息感知</h3>
+                    <p>全面解析直播内容中的视觉、听觉和语言信息，为智能剪辑提供丰富数据基础</p>
+                </div>
+                <div class="solution-card animate-in">
+                    <div class="solution-number">2</div>
+                    <h3>智能体协同工作</h3>
+                    <p>多个智能体协同工作，每个负责特定任务，通过智能调度系统实现高效协作</p>
+                </div>
+                <div class="solution-card animate-in">
+                    <div class="solution-number">3</div>
+                    <h3>智能剪辑生成</h3>
+                    <p>自动识别直播高光时刻，智能组合片段、添加特效、生成文案和背景音乐</p>
+                </div>
+                <div class="solution-card animate-in">
+                    <div class="solution-number">4</div>
+                    <h3>多渠道智能发布</h3>
+                    <p>自动适配视频格式、长度和风格，实现一键多平台发布，数据分析持续优化</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Workflow Comparison -->
+    <section>
+        <div class="container">
+            <h2 class="section-title animate-in">传统工作流 VS iClip 3.0 智能工作流</h2>
+            <p class="section-subtitle animate-in">高效与低效的本质区别，从工作流开始革新</p>
+            
+            <div class="animate-in" style="text-align: center;">
+                <img src="工作流对比.png" alt="工作流对比" style="border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Steps -->
+    <section style="background: var(--system-background-secondary);">
+        <div class="container-wide">
+            <h2 class="section-title animate-in">简单四步，高效创作</h2>
+            <p class="section-subtitle animate-in">从直播接入到内容发布，全程自动化完成</p>
+            
+            <div class="animate-in" style="text-align: center; margin-bottom: 48px;">
+                <img src="工作流程.png" alt="iClip 3.0 工作流程" style="border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);">
+            </div>
+            
+            <div class="step-flow animate-in">
+                <div class="step-content">
+                    <h3>1. 接入直播流</h3>
+                    <p>一键接入主流直播平台，支持多种推流方式，实时同步直播内容</p>
+                </div>
+                <div class="step-image">
+                    <img src="直播录制界面.png" alt="直播推流界面">
+                </div>
+            </div>
+            
+            <div class="step-flow animate-in">
+                <div class="step-content">
+                    <h3>2. 智能内容分析</h3>
+                    <p>AI实时分析直播内容，识别高光时刻，智能分段拆解</p>
+                </div>
+                <div class="step-image">
+                    <img src="wechat_2025-08-26_181811_508.png" alt="智能分段拆解">
+                </div>
+            </div>
+            
+            <div class="step-flow animate-in">
+                <div class="step-content">
+                    <h3>3. 自动剪辑成片</h3>
+                    <p>智能体自动完成剪辑、特效添加、文案生成等所有后期工作</p>
+                </div>
+                <div class="step-image">
+                    <img src="WX20250422-194231@2x.png" alt="自动剪辑成片">
+                </div>
+            </div>
+            
+            <div class="step-flow animate-in">
+                <div class="step-content">
+                    <h3>4. 多平台发布</h3>
+                    <p>一键发布至多个平台，自动适配格式，支持定时发布和智能挂车</p>
+                </div>
+                <div class="step-image">
+                    <img src="发布功能界面.png" alt="多平台发布界面">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Showcase -->
+    <section>
+        <div class="container">
+            <h2 class="section-title animate-in">全方位功能展示</h2>
+            <p class="section-subtitle animate-in">满足您在短视频营销中的各种需求</p>
+            
+            <div class="animate-in" style="text-align: center; margin-bottom: 32px;">
+                <img src="wechat_2025-08-27_122623_588.png" alt="iClip3.0功能展示" style="border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);">
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="card animate-in" style="text-align: center;">
+                    <img src="WX20250422-194357@2x.png" alt="直播内容智能拆条" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 16px;">
+                    <h3>直播内容智能拆条</h3>
+                    <p>自动分类管理高光片段，不错过任何精彩瞬间</p>
+                </div>
+                <div class="card animate-in" style="text-align: center;">
+                    <img src="专有名称，敏感词配置.png" alt="智能标签配置" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 16px;">
+                    <h3>智能标签配置</h3>
+                    <p>自定义专有名词、敏感词，让AI更懂你的业务</p>
+                </div>
+                <div class="card animate-in" style="text-align: center;">
+                    <img src="大模型语义标签自定义配置.png" alt="语义标签配置" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 16px;">
+                    <h3>语义标签配置</h3>
+                    <p>基于大模型的智能语义理解，精准内容标注</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages -->
+    <section style="background: var(--system-background-secondary);">
+        <div class="container">
+            <h2 class="section-title animate-in">六大竞争优势</h2>
+            <p class="section-subtitle animate-in">技术领先，优势明显，助力您的短视频营销一飞冲天</p>
+            
+            <div class="grid grid-3">
+                <div class="card card-light animate-in">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">🧠</div>
+                        <h3>多模态大模型</h3>
+                    </div>
+                    <p>采用先进的多模态大模型技术，实现视觉、听觉和语言信息的全面理解</p>
+                </div>
+                <div class="card card-light animate-in">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">🤖</div>
+                        <h3>多智能体协同</h3>
+                    </div>
+                    <p>通过多智能体协同工作系统，实现高效、精准的短视频内容创作</p>
+                </div>
+                <div class="card card-light animate-in">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">⚡</div>
+                        <h3>实时处理能力</h3>
+                    </div>
+                    <p>直播过程中实时处理内容，直播结束即可产出高质量短视频</p>
+                </div>
+                <div class="card card-light animate-in">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">🎨</div>
+                        <h3>个性化定制</h3>
+                    </div>
+                    <p>支持自定义品牌风格、模板和特效，保持品牌一致性</p>
+                </div>
+                <div class="card card-light animate-in">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">📊</div>
+                        <h3>数据驱动优化</h3>
+                    </div>
+                    <p>基于数据分析，持续优化内容策略，提升转化效果</p>
+                </div>
+                <div class="card card-light animate-in">
+                    <div style="display: flex; align-items: center; margin-bottom: 16px;">
+                        <div style="width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--system-blue), var(--system-teal)); display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 24px;">🛡️</div>
+                        <h3>安全稳定可靠</h3>
+                    </div>
+                    <p>采用企业级安全架构，保障数据安全，系统稳定可靠</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison -->
+    <section>
+        <div class="container">
+            <h2 class="section-title animate-in">为什么选择 iClip 3.0？</h2>
+            <p class="section-subtitle animate-in">对比传统制作方式和其他解决方案，iClip 3.0优势明显</p>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card card-light animate-in">
+                    <div style="font-size: 48px; margin-bottom: 16px;">😰</div>
+                    <h3 style="color: var(--system-red);">传统制作方式</h3>
+                    <p><strong>人力成本高</strong></p>
+                    <p>直播场控、视频剪辑、内容运营、数据分析</p>
+                    <p>效率低下，容易错过营销时机</p>
+                    <p>质量不稳定，缺乏一致性</p>
+                    <div style="background: rgba(255, 59, 48, 0.1); padding: 12px; border-radius: 8px; margin-top: 16px;">
+                        <p style="color: var(--system-red); font-weight: 700;">一天 3-5 条切片视频</p>
+                    </div>
+                </div>
+                
+                <div class="comparison-card highlight animate-in">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🚀</div>
+                    <h3 style="color: var(--system-blue);">iClip 3.0</h3>
+                    <p><strong>全自动AI一键直播切片成片</strong></p>
+                    <p>一站式解决方案</p>
+                    <p>高效稳定，不错过任何营销机会</p>
+                    <p>统一标准，保证品牌一致性</p>
+                    <div style="background: rgba(0, 122, 255, 0.1); padding: 12px; border-radius: 8px; margin-top: 16px;">
+                        <p style="color: var(--system-blue); font-weight: 700;">一天 300-500 条切片视频</p>
+                    </div>
+                </div>
+                
+                <div class="comparison-card card-light animate-in">
+                    <div style="font-size: 48px; margin-bottom: 16px;">😵</div>
+                    <h3 style="color: var(--system-orange);">多工具杂烩</h3>
+                    <p><strong>核心痛点：素材管理散乱</strong></p>
+                    <p>制作流程繁琐、效率低</p>
+                    <p>需要人工干预，无法完全自动化</p>
+                    <p>各工具之间协作困难</p>
+                    <div style="background: rgba(255, 149, 0, 0.1); padding: 12px; border-radius: 8px; margin-top: 16px;">
+                        <p style="color: var(--system-orange); font-weight: 700;">一天 30-50 条切片视频</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies -->
+    <section style="background: var(--system-background-secondary);">
+        <div class="container">
+            <h2 class="section-title animate-in">成功案例</h2>
+            <p class="section-subtitle animate-in">iClip 3.0已经帮助众多企业实现了短视频营销的突破</p>
+            
+            <div class="animate-in" style="text-align: center; margin-bottom: 48px;">
+                <img src="案例墙.png" alt="客户成功案例墙" style="border-radius: 12px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);">
+            </div>
+            
+            <div class="grid grid-3">
+                <div class="card card-light animate-in" style="text-align: center;">
+                    <img src="wechat_2025-08-27_122733_688.png" alt="头部代运营公司成功案例" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 16px;">
+                    <h3>某头部代运营公司</h3>
+                    <div class="stat-number">300%</div>
+                    <p>客户品牌曝光量增长，转化率提升35%，内容制作效率提升8倍</p>
+                </div>
+                <div class="card card-light animate-in" style="text-align: center;">
+                    <img src="wechat_2025-08-27_122727_213.png" alt="MCN机构成功案例" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 16px;">
+                    <h3>某MCN机构</h3>
+                    <div class="stat-number">100%</div>
+                    <p>旗下达人视频产出量增长，粉丝互动率提升40%，内容制作成本降低60%</p>
+                </div>
+                <div class="card card-light animate-in" style="text-align: center;">
+                    <img src="wechat_2025-08-27_122720_712.png" alt="头部品牌成功案例" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 16px;">
+                    <h3>某知名头部品牌</h3>
+                    <div class="stat-number">10x</div>
+                    <p>直播切片内容发布速度提升，粉丝互动率提升50%，销售额增长45%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section>
+        <div class="container">
+            <h2 class="section-title animate-in">数据说话，效果显著</h2>
+            <p class="section-subtitle animate-in">已帮助众多企业实现短视频营销突破</p>
+            
+            <div class="stats-grid animate-in">
+                <div>
+                    <div class="stat-number">300%</div>
+                    <div class="stat-label">品牌曝光量增长</div>
+                </div>
+                <div>
+                    <div class="stat-number">8x</div>
+                    <div class="stat-label">内容制作效率提升</div>
+                </div>
+                <div>
+                    <div class="stat-number">500</div>
+                    <div class="stat-label">日产视频数量</div>
+                </div>
+                <div>
+                    <div class="stat-number">60%</div>
+                    <div class="stat-label">制作成本节约</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2 class="animate-in">开启您的智能营销之旅</h2>
+            <p class="animate-in">联系我们的专业团队，获取个性化解决方案</p>
+            
+            <div class="hero-buttons animate-in">
+                <a href="#contact" class="btn btn-large" style="background: white; color: var(--system-blue);">立即咨询</a>
+                <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn btn-secondary btn-large">查看详细文档</a>
+            </div>
+            
+            <div class="contact-info animate-in">
+                <div class="contact-item">
+                    <h4>大客户经理</h4>
+                    <p>xiaoyan</p>
+                </div>
+                <div class="contact-item">
+                    <h4>联系电话</h4>
+                    <p>131-6238-5783</p>
+                </div>
+                <div class="contact-item">
+                    <h4>邮箱地址</h4>
+                    <p>zhouxiaoyan@infimind.com</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <h3>iClip 3.0 - 智能直播剪辑平台</h3>
+            <p>极睿科技 infimind - AIGC赋予零售全新可能</p>
+            <div class="footer-links">
+                <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank">产品文档</a>
+                <a href="https://www.infimind.com" target="_blank">官方网站</a>
+            </div>
+            <p style="margin-top: 20px; font-size: 14px; color: var(--label-tertiary);">© 2025 极睿科技. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = `${Math.random() * 0.3}s`;
+                    entry.target.classList.add('animate-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all elements that should animate
+        document.querySelectorAll('section > div > *, section > div > div > *').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Button interactions
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Card interactions
+        document.querySelectorAll('.card, .problem-card, .solution-card, .comparison-card, .feature-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                if (!this.style.transform.includes('translateY')) {
+                    this.style.transform = 'translateY(-4px)';
+                }
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                if (this.classList.contains('highlight')) {
+                    this.style.transform = 'translateY(-8px)';
+                } else {
+                    this.style.transform = 'translateY(0)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
