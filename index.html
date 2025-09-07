@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极睿直播智能体 iClip 3.0 - 短视频智能剪辑平台</title>
+    <style>
+        /* 打印样式表 - 超级简化PDF导出修复 */
+        @media print {
+            /* Step 1: 全局重置 */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                box-shadow: none !important;
+                text-shadow: none !important;
+                animation: none !important;
+                transition: none !important;
+            }
+            
+            /* Step 2: 页面基础 */
+            html, body {
+                background: #0a1628 !important;
+                color: white !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                font-family: Arial, sans-serif !important;
+                font-size: 12pt !important;
+            }
+            
+            /* Step 3: 所有背景区域 */
+            div, section {
+                background: #0a1628 !important;
+                color: white !important;
+            }
+            
+            /* Step 4: 文本颜色 */
+            h1, h2, h3, h4, h5, h6, p, span, a {
+                color: white !important;
+                background: none !important;
+            }
+            
+            /* Step 5: 白色内容卡片 */
+            .pain-point-card,
+            .advantage-card,
+            .workflow-step-card,
+            .comparison-card,
+            .case-card {
+                background: white !important;
+                color: black !important;
+                border: 1px solid #ccc !important;
+                padding: 15px !important;
+                margin: 10px 0 !important;
+            }
+            
+            .pain-point-card *,
+            .advantage-card *,
+            .workflow-step-card *,
+            .comparison-card *,
+            .case-card * {
+                color: black !important;
+            }
+            
+            /* Step 6: 按钮 */
+            .btn {
+                background: #0071e3 !important;
+                color: white !important;
+                border: 1px solid white !important;
+                padding: 8px 16px !important;
+                display: inline-block !important;
+            }
+            
+            /* Step 7: 数字 */
+            .case-result, .stat-number {
+                color: #0071e3 !important;
+                font-weight: bold !important;
+            }
+            
+            /* Step 8: 图片 */
+            img {
+                max-width: 100% !important;
+                height: auto !important;
+            }
+            
+            /* Step 9: 布局 */
+            .container {
+                max-width: 100% !important;
+                padding: 10px !important;
+            }
+            
+            /* Step 10: 字体大小 */
+            h1 { font-size: 18pt !important; }
+            h2 { font-size: 16pt !important; }
+            h3 { font-size: 14pt !important; }
+            p { font-size: 12pt !important; }
+        }
+        
+        /* 全局样式重置 - 苹果风格 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* 苹果网站字体系统和高级渐变蓝主题 - 苹果风格设计 */
+        :root {
+            /* 现代深蓝色主题系统 - 更精致的色彩层次 */
+            --primary-blue: #0a1628;
+            --primary-blue-light: #1a2a3a;
+            --primary-blue-dark: #050f1a;
+            --secondary-blue: #1e3a5f;
+            --secondary-blue-light: #2d5a8a;
+            --tertiary-blue: #3b82f6;
+            --accent-blue: #60a5fa;
+            --accent-purple: #8b5cf6;
+            --accent-cyan: #06b6d4;
+            
+            /* 高级渐变背景系统 - 更丰富的视觉层次 */
+            --gradient-blue-1: linear-gradient(135deg, #0a1628 0%, #1e3a5f 50%, #2d5a8a 100%);
+            --gradient-blue-2: linear-gradient(135deg, #050f1a 0%, #1a2a3a 50%, #3b82f6 100%);
+            --gradient-blue-3: linear-gradient(135deg, #1a2a3a 0%, #2d5a8a 50%, #60a5fa 100%);
+            --gradient-blue-4: linear-gradient(135deg, #0f1b2e 0%, #1e3a5f 50%, #3b82f6 100%);
+            --gradient-blue-5: linear-gradient(135deg, #1e3a5f 0%, #3b82f6 50%, #8b5cf6 100%);
+            --gradient-accent: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #06b6d4 100%);
+            
+            /* 精致的文本颜色系统 */
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+            --text-tertiary: #94a3b8;
+            --text-accent: #60a5fa;
+            --text-on-blue: #ffffff;
+            --text-on-light-blue: #0a1628;
+            
+            /* 高级背景和边框系统 */
+            --background-light: #1a2a3a;
+            --background-white: #0a1628;
+            --background-glass: rgba(26, 42, 58, 0.8);
+            --border-color: #2d5a8a;
+            --border-light: #3b82f6;
+            --border-accent: #60a5fa;
+            
+            /* 阴影系统 */
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-blue: 0 10px 25px -5px rgba(59, 130, 246, 0.25);
+            --shadow-purple: 0 10px 25px -5px rgba(139, 92, 246, 0.25);
+        }
+
+        /* 基础样式设置 - 苹果风格强调优雅和简洁 */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-primary);
+            background: var(--gradient-blue-1);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 现代容器系统 */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(1.5rem, 4vw, 3rem);
+            position: relative;
+        }
+
+         /* 间距系统 - 更协调的比例 */
+         .py-6 { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+         .py-8 { padding: clamp(3rem, 7vw, 5rem) 0; }
+         .py-10 { padding: clamp(3.5rem, 8vw, 6rem) 0; }
+         .py-12 { padding: clamp(4rem, 9vw, 7rem) 0; }
+         .py-16 { padding: clamp(5rem, 12vw, 9rem) 0; }
+         
+         .mb-4 { margin-bottom: clamp(1.2rem, 3vw, 2rem); }
+         .mb-6 { margin-bottom: clamp(1.5rem, 4vw, 2.5rem); }
+         .mb-8 { margin-bottom: clamp(2rem, 5vw, 3rem); }
+         
+         /* 新增精细间距类 */
+         .mb-2 { margin-bottom: clamp(0.8rem, 2vw, 1.2rem); }
+         .mb-3 { margin-bottom: clamp(1rem, 2.5vw, 1.5rem); }
+         .mb-5 { margin-bottom: clamp(1.3rem, 3.5vw, 2.2rem); }
+         
+         .mt-4 { margin-top: clamp(1.2rem, 3vw, 2rem); }
+         .mt-6 { margin-top: clamp(1.5rem, 4vw, 2.5rem); }
+         .mt-8 { margin-top: clamp(2rem, 5vw, 3rem); }
+
+        /* 全局div字体优化 - 增强设计感和排版层次 */
+        div {
+            font-family: inherit;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        /* div内文本层级系统 - 增强设计感 */
+        div h1, div .hero-title, div .section-title, div .cta-title, div .apple-gradient-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        div h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.2rem;
+        }
+
+        div h3, div .advantage-title, div .case-title, div .step-title {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        div p, div .hero-subtitle, div .section-subtitle, div .cta-subtitle {
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            line-height: 1.7;
+            letter-spacing: 0.01em;
+            color: var(--text-primary);
+            max-width: 100ch;
+            margin-bottom: 1rem;
+        }
+
+        /* 卡片文本优化 - 增强设计感 */
+        div .apple-card p,
+        div .case-card p,
+        div .comparison-card p {
+            font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+            line-height: 1.65;
+            letter-spacing: 0.01em;
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 数据数字样式增强 - 更有设计感 */
+        div .stat-number,
+        div .case-result {
+            font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+            font-weight: 700;
+            color: var(--tertiary-blue);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.03em;
+            text-shadow: 0 2px 4px rgba(0, 113, 227, 0.15);
+            transition: all 0.3s ease;
+        }
+
+        /* 小文本样式优化 */
+        div .stat-label,
+        div .footer-company {
+            font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+            letter-spacing: 0.01em;
+            color: var(--text-secondary);
+        }
+
+        /* 按钮文本优化 */
+        div .btn {
+            font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+            letter-spacing: 0.02em;
+            font-weight: 500;
+        }
+
+        /* 优化文本容器的边距和间距 */
+        div .card-grid,
+        div .apple-gradient-description {
+            gap: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        /* 悬停效果增强 - 字体细微变化 */
+        .apple-card:hover h3,
+        .case-card:hover h3,
+        .comparison-card:hover h3 {
+            transform: translateY(-1px);
+            transition: transform 0.3s ease;
+        }
+
+        /* 文本响应式优化 */
+        @media (max-width: 768px) {
+            div h1, div .hero-title, div .section-title, div .cta-title {
+                font-size: clamp(2rem, 5vw, 3rem);
+            }
+            
+            div h2 {
+                font-size: clamp(1.5rem, 4vw, 2.2rem);
+            }
+            
+            div h3 {
+                font-size: clamp(1.2rem, 3vw, 1.5rem);
+            }
+        }
+
+        @media (max-width: 576px) {
+            div h1, div .hero-title, div .section-title, div .cta-title {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+                letter-spacing: -0.02em;
+            }
+            
+            div h2 {
+                font-size: clamp(1.3rem, 4vw, 1.8rem);
+            }
+            
+            div h3 {
+                font-size: clamp(1.1rem, 3vw, 1.3rem);
+            }
+            
+            div p {
+                font-size: clamp(0.95rem, 2vw, 1rem);
+            }
+        }
+
+        /* 现代字体系统 - 更精致的排版层次 */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            color: var(--text-primary);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            font-weight: 600;
+            letter-spacing: -0.03em;
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: clamp(1rem, 1.5vw, 1.2rem);
+            color: var(--text-secondary);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 增强所有div区域的排版一致性 */
+        .section-title {
+            font-size: 2.2rem !important;
+            font-weight: 700 !important;
+            color: white !important;
+            letter-spacing: -0.02em !important;
+            line-height: 1.2 !important;
+            text-align: center !important;
+            margin-bottom: 1.5rem !important;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem !important;
+            color: var(--text-secondary) !important;
+            letter-spacing: 0.01em !important;
+            line-height: 1.6 !important;
+            text-align: center !important;
+            margin: 0 auto 3rem auto !important;
+            max-width: 800px !important;
+            font-weight: 400 !important;
+        }
+
+        /* 卡片内容字体优化 */
+        .apple-card h3,
+        .case-card h3,
+        .advantage-title,
+        .case-title {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            font-weight: 700 !important;
+            letter-spacing: -0.02em !important;
+            text-rendering: optimizeLegibility !important;
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .apple-card p,
+        .case-card p {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: 0.01em !important;
+            text-rendering: optimizeLegibility !important;
+            -webkit-font-smoothing: antialiased !important;
+            -moz-osx-font-smoothing: grayscale !important;
+        }
+
+        /* 数据数字样式增强 */
+        .case-result,
+        .stat-number {
+            font-variant-numeric: tabular-nums !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.02em !important;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) !important;
+        }
+
+        /* 按钮样式 - 苹果风格胶囊按钮 */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            outline: none;
+            user-select: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            letter-spacing: 0.02em;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        /* 现代渐变按钮 */
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: white;
+            box-shadow: var(--shadow-blue);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-purple);
+            filter: brightness(1.1);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-secondary {
+            background: var(--background-glass);
+            color: var(--text-primary);
+            border: 1px solid var(--border-accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--accent-blue);
+        }
+
+        /* 新增：文档链接按钮悬停效果 */
+        .btn-secondary[href*="feishu.cn"]:hover {
+            background: rgba(255, 255, 255, 0.2) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 113, 227, 0.3);
+            border-color: rgba(255, 255, 255, 0.5) !important;
+        }
+
+        /* 高级动画效果 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.5); }
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* 浮动动画 */
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* 发光效果 */
+        .glowing {
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        /* 微妙的背景动画 */
+        .animated-bg {
+            background: linear-gradient(-45deg, #0a1628, #1e3a5f, #2d5a8a, #3b82f6);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 高级视觉效果 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .neon-glow {
+            box-shadow: 
+                0 0 20px rgba(59, 130, 246, 0.3),
+                0 0 40px rgba(59, 130, 246, 0.2),
+                0 0 60px rgba(59, 130, 246, 0.1);
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* 微妙的悬停效果 */
+        .hover-lift {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* 现代玻璃态卡片 - 增强深度和层次感 */
+        .apple-card {
+            background: var(--background-glass);
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+
+        .apple-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .apple-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--border-accent);
+        }
+        
+        /* 增强字体设计感和层次感 */
+        .advantage-title {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .apple-card p {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: 0.01em;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        /* 图标和文字的层次感增强 */
+        .advantage-icon {
+            display: inline-block;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .apple-card:hover .advantage-icon {
+            transform: translateY(-5px) scale(1.05);
+        }
+        
+        .apple-card:hover .advantage-title {
+            color: #0071e3;
+            transition: color 0.3s ease;
+        }
+
+        /* 英雄区域 - 增强视觉效果 */
+        .hero {
+            position: relative;
+            padding: 12rem 0 6rem;
+            text-align: center;
+            background: var(--gradient-blue-1);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(0, 113, 227, 0.1), transparent 60%),
+                        radial-gradient(circle at bottom left, rgba(85, 170, 255, 0.08), transparent 70%);
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        /* 苹果风格图标 */
+        .apple-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* 统计数字动画 - 苹果风格强调精准 */
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        /* 卡片容器网格布局 - 增强响应式和间距 */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 2.5rem;
+        }
+
+        /* 苹果风格渐变背景 */
+        .gradient-bg {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: white;
+        }
+
+        /* 步骤样式 - 增强视觉引导 */
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        /* 高级渐蓝色苹果风格设计 - 增强版 */
+        .apple-gradient-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            padding: 7rem 0 6rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+        }
+
+        /* 增强层次感的装饰元素 */
+        .apple-gradient-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.2), transparent 70%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1), transparent 70%),
+                        radial-gradient(circle at 50% 50%, rgba(85, 170, 255, 0.15), transparent 50%);
+            z-index: 0;
+            opacity: 0.8;
+        }
+
+        .apple-gradient-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 优化标题排版，更贴近苹果官网风格 */
+        .apple-gradient-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+        }
+
+        /* 优化描述文本样式 */
+        .apple-gradient-content > p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.3rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            letter-spacing: 0.01em;
+            font-weight: 400;
+        }
+
+        /* 一排显示的p内容，增强视觉吸引力 */
+        .apple-gradient-description {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: nowrap;
+            max-width: 1100px;
+            margin: 2rem 0 3rem;
+            align-items: stretch;
+        }
+
+        .apple-gradient-description p {
+            color: rgba(255, 255, 255, 0.95);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            flex: 1;
+            min-width: 220px;
+            margin-bottom: 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .apple-gradient-description p:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        /* 优化图片显示容器 */
+        .apple-gradient-image-container {
+            margin: 3rem 0 2rem;
+            max-width: 90%;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 28px;
+            overflow: hidden;
+            background-color: white;
+            padding: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            position: relative;
+        }
+
+        .apple-gradient-image-container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+        }
+
+        .apple-gradient-image-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        /* 优化图片样式 */
+        .apple-gradient-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 20px;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .apple-gradient-image-container:hover .apple-gradient-image {
+            transform: scale(1.02);
+        }
+
+        /* 响应式设计优化 */
+        @media (max-width: 992px) {
+            .apple-gradient-title {
+                font-size: 2.5rem;
+            }
+            
+            .apple-gradient-description {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+            
+            .apple-gradient-description p {
+                min-width: 280px;
+            }
+            
+            .apple-gradient-image-container {
+                max-width: 95%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .apple-gradient-section {
+                padding: 5rem 0 4rem;
+            }
+            
+            .apple-gradient-title {
+                font-size: 2.2rem;
+            }
+            
+            .apple-gradient-content > p {
+                font-size: 1.1rem;
+            }
+            
+            .apple-gradient-description p {
+                font-size: 1rem;
+                min-width: 100%;
+            }
+            
+            .apple-gradient-image-container {
+                padding: 1rem;
+                border-radius: 20px;
+            }
+            
+            .apple-gradient-image {
+                border-radius: 14px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .apple-gradient-title {
+                font-size: 1.8rem;
+                letter-spacing: -0.02em;
+            }
+            
+            .apple-gradient-content {
+                padding: 0 16px;
+            }
+            
+            .apple-gradient-image-container {
+                margin: 2rem 0;
+            }
+        }
+
+        /* 对比卡片 - 增强视觉对比 */
+        .comparison-card {
+            padding: 2.5rem;
+            border-radius: 16px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .comparison-card.highlight {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-blue-dark) 100%);
+            color: white;
+            transform: translateY(-12px);
+            box-shadow: 0 20px 36px rgba(0, 113, 227, 0.25);
+        }
+
+        /* 客户案例卡片 - 增强交互和视觉 */
+        .case-card {
+            background-color: var(--background-white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .case-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+        }
+
+        .case-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 16px 16px 0 0;
+            transition: transform 0.5s ease;
+        }
+
+        .case-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .case-content {
+            padding: 1.8rem;
+        }
+
+        .case-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .case-result {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.8rem;
+            letter-spacing: -0.02em;
+        }
+
+        /* CTA区域 - 增强行动引导 */
+        .cta-section {
+            background-color: var(--background-light);
+            padding: 6rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at bottom right, rgba(0, 113, 227, 0.05), transparent 70%),
+                        radial-gradient(circle at top left, rgba(85, 170, 255, 0.03), transparent 70%);
+            z-index: 0;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .cta-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* 页脚 - 增强品牌感 */
+        .footer {
+            background-color: var(--background-light);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--text-primary);
+        }
+
+        .footer-company {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* 分隔线 */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 2rem 0;
+        }
+
+        /* 响应式设计 - 苹果风格强调多设备体验 */
+        @media (max-width: 992px) {
+            h1 {
+                font-size: 3rem;
+            }
+            h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .section-title, .cta-title {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 6rem 0 4rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
+            .cta-title {
+                font-size: 2.2rem;
+            }
+            .card-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .comparison-card {
+                padding: 2rem;
+            }
+            
+            .section-title, .cta-title {
+                font-size: 2rem;
+            }
+            
+            .section-subtitle, .cta-subtitle {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            h3 {
+                font-size: 1.3rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 10px 24px;
+                font-size: 15px;
+            }
+            
+            .hero {
+                padding: 5rem 0 3rem;
+            }
+            
+            .hero-title {
+                font-size: 2.2rem;
+                letter-spacing: -0.02em;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title, .cta-title {
+                font-size: 1.8rem;
+                letter-spacing: -0.02em;
+            }
+        }
+
+        /* 滚动动画 - 更平滑的入场效果 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(25px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.1, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* 卡片悬停效果 */
+        .apple-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 15px 30px rgba(0, 113, 227, 0.15) !important;
+        }
+        
+        .case-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 15px 30px rgba(0, 113, 227, 0.15) !important;
+        }
+        
+        .comparison-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 15px 30px rgba(0, 113, 227, 0.15) !important;
+        }
+        
+        .comparison-card.highlight:hover {
+            transform: translateY(-10px) !important;
+            box-shadow: 0 20px 40px rgba(0, 113, 227, 0.2) !important;
+        }
+
+        /* 增强的过渡动画 */
+        .transition-all {
+            transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        /* 阴影效果 - 更自然的层次感 */
+        .shadow-sm {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .shadow-md {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+        }
+
+        .shadow-lg {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 白色背景卡片 */
+        .bg-white {
+            background-color: var(--background-white);
+        }
+
+        /* 间距工具 - 统一的间距系统 */
+        .mb-1 {
+            margin-bottom: 0.5rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 1rem;
+        }
+
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 2rem;
+        }
+
+        .mb-5 {
+            margin-bottom: 2.5rem;
+        }
+
+        .py-4 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+
+        .py-5 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .py-6 {
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        /* 图片样式 - 苹果风格的图片处理 */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s ease;
+        }
+
+        img:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        /* 列表样式 - 增强可读性 */
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        /* 链接样式 */
+        a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        a:hover {
+            color: var(--primary-blue-dark);
+            text-decoration: underline;
+        }
+
+        /* 渐入动画 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 分隔线 */
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #d2d2d7;
+            margin: 2rem 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 英雄区域：吸引注意力 -->
+    <div class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1 class="hero-title gradient-text" style="text-align: center; line-height: 1.2; font-size: clamp(2.5rem, 5vw, 4rem); max-width: 800px; margin: 0 auto 2rem;">
+                    <span style="display: block; font-weight: 700; letter-spacing: -0.04em;">ICLIP3.0 直播智能体剪辑师</span>
+                    <span style="display: block; font-size: 1.2rem; font-weight: 500; margin-top: 1rem; color: var(--text-secondary); letter-spacing: 0.01em;">基于LLM大模型,电商爆款短视频，SFT监督微调训练，直播剪辑智能体<br>日产出百条直播切片，高光片段</span>
+                </h1>
+                <p class="hero-subtitle" style="text-align: center; font-size: 1.1rem; max-width: 700px; margin: 0 auto; line-height: 1.6;">基于多模态大模型的短视频智能剪辑平台，为电商直播打造高效内容生产流水线</p>
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#contact" class="btn btn-primary hover-lift" style="font-size: 1.1rem; padding: 14px 28px; min-width: 200px; margin-right: 1rem;">产品演示咨询</a>
+                    <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn btn-secondary hover-lift" style="font-size: 1.1rem; padding: 14px 28px; min-width: 200px;">详细文档</a>
+                </div>
+                
+                <div style="text-align: center; margin-top: 4rem;">
+                    <img src="产品全景图.png" alt="iClip3.0产品全景图" class="hover-lift" style="max-width: 100%; height: auto; border-radius: 20px; box-shadow: var(--shadow-xl); border: 1px solid rgba(255, 255, 255, 0.1);">
+                    
+                    <!-- 添加功能图片 -->
+                    <div style="display: flex; flex-wrap: nowrap; overflow-x: auto; justify-content: center; gap: 20px; margin-top: 30px; padding: 10px 0;">
+                        <div style="min-width: 200px; text-align: center;">
+                            <img src="功能一.png" alt="智能内容处理" style="max-width: 100%; height: 150px; object-fit: contain; border-radius: 24px; box-shadow: 0 10px 20px rgba(0, 113, 227, 0.1);">
+                            <h4 style="margin-top: 10px; color: white; font-size: 1.1rem; font-weight: 600;">视频剪辑处理</h4>
+                        </div>
+                        <div style="min-width: 200px; text-align: center;">
+                            <img src="功能2.png" alt="直播录制内容识别" style="max-width: 100%; height: 150px; object-fit: contain; border-radius: 24px; box-shadow: 0 10px 20px rgba(0, 113, 227, 0.1);">
+                            <h4 style="margin-top: 10px; color: white; font-size: 1.1rem; font-weight: 600;">直播录制内容识别</h4>
+                        </div>
+                        <div style="min-width: 200px; text-align: center;">
+                            <img src="功能3.png" alt="素材资源管理" style="max-width: 100%; height: 150px; object-fit: contain; border-radius: 24px; box-shadow: 0 10px 20px rgba(0, 113, 227, 0.1);">
+                            <h4 style="margin-top: 10px; color: white; font-size: 1.1rem; font-weight: 600;">素材资源管理</h4>
+                        </div>
+                        <div style="min-width: 200px; text-align: center;">
+                            <img src="功能4.png" alt="商品分类管理" style="max-width: 100%; height: 150px; object-fit: contain; border-radius: 24px; box-shadow: 0 10px 20px rgba(0, 113, 227, 0.1);">
+                            <h4 style="margin-top: 10px; color: white; font-size: 1.1rem; font-weight: 600;">商品分类管理</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 市场痛点：激发需求 -->
+    <div class="pain-points-section py-6" style="background: var(--gradient-blue-1);">
+        <div class="container">
+             <h2 class="section-title fade-in" style="text-align: center; font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">短视频营销的四大痛点</h2>
+             <p class="section-subtitle fade-in" style="text-align: center; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">传统短视频制作方式已无法满足当今电商营销的高效需求
+            <div class="card-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); max-width: 1400px; margin: 0 auto;">
+                <div class="pain-point-card fade-in hover-lift" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 240px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                    <div class="pain-icon" style="margin-bottom: 2rem; font-size: 3.5rem; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15)); background: linear-gradient(135deg, #ff6b6b, #ff8e8e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">⏰</div>
+                    <h3 class="pain-title" style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.3;">效率低下</h3>
+                    <p style="text-align: center; color: #4a4a4a; line-height: 1.7; margin: 0; font-size: 1rem; font-weight: 400; letter-spacing: 0.01em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">传统制作方式一天只能产出3-5条视频，无法满足高频内容需求</p>
+                </div>
+                <div class="pain-point-card fade-in hover-lift" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 240px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                    <div class="pain-icon" style="margin-bottom: 2rem; font-size: 3.5rem; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15)); background: linear-gradient(135deg, #ff6b6b, #ff8e8e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">💰</div>
+                    <h3 class="pain-title" style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.3;">成本高昂</h3>
+                    <p style="text-align: center; color: #4a4a4a; line-height: 1.7; margin: 0; font-size: 1rem; font-weight: 400; letter-spacing: 0.01em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">需要大量人力投入直播场控、视频剪辑、内容运营等环节</p>
+                </div>
+                <div class="pain-point-card fade-in hover-lift" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 240px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                    <div class="pain-icon" style="margin-bottom: 2rem; font-size: 3.5rem; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15)); background: linear-gradient(135deg, #ff6b6b, #ff8e8e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">🎯</div>
+                    <h3 class="pain-title" style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.3;">质量参差</h3>
+                    <p style="text-align: center; color: #4a4a4a; line-height: 1.7; margin: 0; font-size: 1rem; font-weight: 400; letter-spacing: 0.01em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">人工制作导致视频质量不稳定，缺乏统一标准和品牌一致性</p>
+                </div>
+                <div class="pain-point-card fade-in hover-lift" style="display: flex; flex-direction: column; align-items: center; text-align: center; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 240px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                    <div class="pain-icon" style="margin-bottom: 2rem; font-size: 3.5rem; filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15)); background: linear-gradient(135deg, #ff6b6b, #ff8e8e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">📊</div>
+                    <h3 class="pain-title" style="margin-bottom: 1.5rem; font-size: 1.5rem; font-weight: 700; color: #1a1a1a; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.3;">数据缺失</h3>
+                    <p style="text-align: center; color: #4a4a4a; line-height: 1.7; margin: 0; font-size: 1rem; font-weight: 400; letter-spacing: 0.01em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">缺乏数据分析指导，无法优化内容策略和提升转化效果</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- 核心功能：展示能力 -->
+    <div class="ai-architecture-section py-6" style="background: var(--gradient-blue-1);">
+        <div class="container">
+         <h2 class="section-title fade-in" style="font-size: clamp(2rem, 4vw, 2.8rem); text-align: center; margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">多模态大模型和多智能体加持，内容智能创作如虎添翼</h2>
+         <p class="section-subtitle fade-in" style="font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">借助多模态大模型强大的感知能力，精准识别各类信息，实现智能内容理解与处理
+        
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <img src="技术.png" alt="多模态大模型和多智能体架构" style="max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);">
+        </div>
+        
+        <div class="architecture-steps" style="max-width: 1200px; margin: 0 auto; display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 30px; align-items: stretch; padding: 0 20px; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;">
+            <div class="step-item fade-in" style="display: flex; flex-direction: column; flex: 1; min-width: 200px; max-width: 280px; text-align: center; align-items: center; padding: 20px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(0, 113, 227, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="step-number" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; display: flex; align-items: center; justify-content: center; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">1</div>
+                <div class="step-content">
+                    <h3 class="step-title" style="font-size: 1.2rem; color: white; font-weight: 600; margin-bottom: 1rem; letter-spacing: -0.01em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.3; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">多模态信息感知与处理</h3>
+                    <p style="color: white; text-align: center; font-size: 0.85rem; line-height: 1.8; margin-top: 0; margin-bottom: 0; letter-spacing: 0.02em; word-spacing: 0.04em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); text-justify: inter-character; word-break: break-word;">全面解析直播内容中的视觉、听觉和语言信息，<br>为智能剪辑提供丰富的数据基础。</p>
+                </div>
+            </div>
+            
+            <div class="step-item fade-in" style="display: flex; flex-direction: column; flex: 1; min-width: 200px; max-width: 280px; text-align: center; align-items: center; padding: 20px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(0, 113, 227, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="step-number" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; display: flex; align-items: center; justify-content: center; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">2</div>
+                <div class="step-content">
+                    <h3 class="step-title" style="font-size: 1.2rem; color: white; font-weight: 600; margin-bottom: 1rem; letter-spacing: -0.01em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.3; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">多智能体协同工作系统</h3>
+                    <p style="color: white; text-align: center; font-size: 0.85rem; line-height: 1.8; margin-top: 0; margin-bottom: 0; letter-spacing: 0.02em; word-spacing: 0.04em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); text-justify: inter-character; word-break: break-word;">多个智能体协同工作，每个负责特定任务，<br>通过智能调度系统实现高效协作。</p>
+                </div>
+            </div>
+            
+            <div class="step-item fade-in" style="display: flex; flex-direction: column; flex: 1; min-width: 200px; max-width: 280px; text-align: center; align-items: center; padding: 20px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(0, 113, 227, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="step-number" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; display: flex; align-items: center; justify-content: center; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">3</div>
+                <div class="step-content">
+                    <h3 class="step-title" style="font-size: 1.2rem; color: white; font-weight: 600; margin-bottom: 1rem; letter-spacing: -0.01em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.3; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">智能剪辑与内容生成</h3>
+                    <p style="color: white; text-align: center; font-size: 0.85rem; line-height: 1.8; margin-top: 0; margin-bottom: 0; letter-spacing: 0.02em; word-spacing: 0.04em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); text-justify: inter-character; word-break: break-word;">自动识别直播高光时刻，智能组合片段、添加特效、<br>生成文案和背景音乐。</p>
+                </div>
+            </div>
+            
+            <div class="step-item fade-in" style="display: flex; flex-direction: column; flex: 1; min-width: 200px; max-width: 280px; text-align: center; align-items: center; padding: 20px; border-radius: 16px; background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 8px 25px rgba(0, 113, 227, 0.2)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                <div class="step-number" style="width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue)); color: white; display: flex; align-items: center; justify-content: center; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 15px; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.2);">4</div>
+                <div class="step-content">
+                    <h3 class="step-title" style="font-size: 1.2rem; color: white; font-weight: 600; margin-bottom: 1rem; letter-spacing: -0.01em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; line-height: 1.3; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">多渠道智能发布与优化</h3>
+                    <p style="color: white; text-align: center; font-size: 0.85rem; line-height: 1.8; margin-top: 0; margin-bottom: 0; letter-spacing: 0.02em; word-spacing: 0.04em; font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15); text-justify: inter-character; word-break: break-word;">自动适配视频格式、长度和风格，实现一键多平台发布，<br>并通过数据分析持续优化。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="workflow-comparison py-6" style="background: var(--gradient-blue-3);">
+    <div class="container">
+         <h2 class="section-title fade-in" style="font-size: clamp(2rem, 4vw, 2.8rem); text-align: center; margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">传统工作流 VS iClip 3.0 智能工作流</h2>
+         <p class="section-subtitle fade-in" style="text-align: center; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">高效与低效的本质区别，从工作流开始革新
+        </p>
+        
+        <!-- 工作流对比图 - 作为主要内容展示 -->
+        <div class="workflow-comparison-container" style="max-width: 1200px; margin: 0 auto 2rem; text-align: center;">
+            <img src="工作流对比.png" alt="工作流对比" style="max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255, 255, 255, 0.03); padding: 12px;" onmouseover="this.style.transform='scale(1.02)'; this.style.boxShadow='0 16px 50px rgba(0, 0, 0, 0.3)'; this.style.border='1px solid rgba(0, 113, 227, 0.5)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 12px 40px rgba(0, 0, 0, 0.25)'; this.style.border='1px solid rgba(255, 255, 255, 0.1)';">
+        </div>
+        
+
+    </div>
+</div>
+
+
+
+<!-- 产品工作流介绍 -->
+<div class="workflow-showcase py-6" style="background: var(--gradient-blue-1);">
+    <div class="container">
+         <h2 class="section-title fade-in" style="text-align: center; font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">智能高效的工作流程</h2>
+         <p class="section-subtitle fade-in" style="text-align: center; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">简单几步，即可完成从直播到短视频发布的全流程
+        
+        <div class="workflow-image" style="text-align: center; margin-bottom: 3rem;">
+            <img src="工作流程.png" alt="iClip3.0智能工作流" style="max-width: 100%; height: auto; border-radius: 16px;">
+        </div>
+        
+         <div class="workflow-steps" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem); max-width: 1200px; margin: 0 auto;">
+             <div class="workflow-step-card fade-in hover-lift" style="text-align: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 200px;">
+                 <div class="step-number" style="width: 60px; height: 60px; border-radius: 50%; background: var(--gradient-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.5rem; margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);">1</div>
+                 <h3 class="step-title" style="font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; letter-spacing: -0.01em;">接入直播流</h3>
+                 <p style="text-align: center; font-size: 1rem; color: #555555; line-height: 1.6; margin: 0;">一键接入直播平台，自动同步直播内容</p>
+             </div>
+             
+             <div class="workflow-step-card fade-in hover-lift" style="text-align: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 200px;">
+                 <div class="step-number" style="width: 60px; height: 60px; border-radius: 50%; background: var(--gradient-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.5rem; margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);">2</div>
+                 <h3 class="step-title" style="font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; letter-spacing: -0.01em;">智能切片</h3>
+                 <p style="text-align: center; font-size: 1rem; color: #555555; line-height: 1.6; margin: 0;">AI自动识别高光时刻，生成多个短视频片段</p>
+             </div>
+             
+             <div class="workflow-step-card fade-in hover-lift" style="text-align: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 200px;">
+                 <div class="step-number" style="width: 60px; height: 60px; border-radius: 50%; background: var(--gradient-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.5rem; margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);">3</div>
+                 <h3 class="step-title" style="font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; letter-spacing: -0.01em;">智能剪辑</h3>
+                 <p style="text-align: center; font-size: 1rem; color: #555555; line-height: 1.6; margin: 0;">自动完成剪辑、特效添加、文案生成等工作</p>
+             </div>
+             
+             <div class="workflow-step-card fade-in hover-lift" style="text-align: center; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 2rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 200px;">
+                 <div class="step-number" style="width: 60px; height: 60px; border-radius: 50%; background: var(--gradient-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.5rem; margin: 0 auto 1.5rem; box-shadow: 0 8px 20px rgba(0, 113, 227, 0.3);">4</div>
+                 <h3 class="step-title" style="font-size: 1.3rem; font-weight: 600; color: #1a1a1a; margin-bottom: 1rem; letter-spacing: -0.01em;">智能发布</h3>
+                 <p style="text-align: center; font-size: 1rem; color: #555555; line-height: 1.6; margin: 0;">一键发布至多个平台，自动适配各平台格式</p>
+             </div>
+         </div>
+    </div>
+</div>
+
+<!-- 产品功能展示 -->
+<div class="product-features py-6" style="background: var(--gradient-blue-2);">
+    <div class="container">
+         <h2 class="section-title fade-in" style="text-align: center; font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">全方位功能展示</h2>
+         <p class="section-subtitle fade-in" style="text-align: center; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem; line-height: 1.6;">满足您在短视频营销中的各种需求
+        
+        <div class="feature-image" style="text-align: center; margin-bottom: 3rem;">
+            <img src="wechat_2025-08-27_122623_588.png" alt="iClip3.0功能展示" style="max-width: 100%; height: auto; border-radius: 16px;">
+        </div>
+        
+        <!-- 添加详细文档链接 -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn btn-secondary" style="font-size: 1rem; padding: 12px 24px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px); border-radius: 980px; text-decoration: none; transition: all 0.3s ease;">
+                📖 查看完整产品文档
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 产品优势 -->
+ <div class="advantages-section py-8" style="background: var(--gradient-blue-1);">
+     <div class="container">
+         <h2 class="section-title fade-in" style="text-align: center; font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">六大竞争优势</h2>
+         <p class="section-subtitle fade-in" style="text-align: center; font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); max-width: 800px; margin: 0 auto 3rem; line-height: 1.6; letter-spacing: 0.01em;">技术领先，优势明显，助力您的短视频营销一飞冲天</p>
+        
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(2rem, 4vw, 3rem); max-width: 1200px; margin: 0 auto;">
+            <div class="advantage-card fade-in hover-lift" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 220px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                <div style="display: flex; align-items: center; margin-bottom: 1.8rem; position: relative; z-index: 2;">
+                    <div class="advantage-icon" style="font-size: 2.5rem; margin-right: 1.5rem; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(90, 200, 250, 0.08)); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);">🧠</div>
+                    <h3 class="advantage-title" style="color: #1a1a1a; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 0; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">多模态大模型</h3>
+                </div>
+                <p style="text-align: left; color: #4a4a4a; font-size: 1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0.01em; margin: 0; padding: 1.2rem 0; background: linear-gradient(to right, rgba(0, 113, 227, 0.08), transparent); border-left: 4px solid #0071e3; padding-left: 1.5rem; transition: all 0.3s ease; border-radius: 0 12px 12px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); position: relative; z-index: 2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">采用先进的多模态大模型技术，实现视觉、听觉和语言信息的全面理解</p>
+            </div>
+            
+            <div class="advantage-card fade-in hover-lift" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 220px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                <div style="display: flex; align-items: center; margin-bottom: 1.8rem; position: relative; z-index: 2;">
+                    <div class="advantage-icon" style="font-size: 2.5rem; margin-right: 1.5rem; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(90, 200, 250, 0.08)); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);">🤖</div>
+                    <h3 class="advantage-title" style="color: #1a1a1a; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 0; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">多智能体协同</h3>
+                </div>
+                <p style="text-align: left; color: #4a4a4a; font-size: 1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0.01em; margin: 0; padding: 1.2rem 0; background: linear-gradient(to right, rgba(0, 113, 227, 0.08), transparent); border-left: 4px solid #0071e3; padding-left: 1.5rem; transition: all 0.3s ease; border-radius: 0 12px 12px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); position: relative; z-index: 2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">通过多智能体协同工作系统，实现高效、精准的短视频内容创作</p>
+            </div>
+            
+            <div class="advantage-card fade-in hover-lift" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 220px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                <div style="display: flex; align-items: center; margin-bottom: 1.8rem; position: relative; z-index: 2;">
+                    <div class="advantage-icon" style="font-size: 2.5rem; margin-right: 1.5rem; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(90, 200, 250, 0.08)); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);">⚡</div>
+                    <h3 class="advantage-title" style="color: #1a1a1a; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 0; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">实时处理能力</h3>
+                </div>
+                <p style="text-align: left; color: #4a4a4a; font-size: 1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0.01em; margin: 0; padding: 1.2rem 0; background: linear-gradient(to right, rgba(0, 113, 227, 0.08), transparent); border-left: 4px solid #0071e3; padding-left: 1.5rem; transition: all 0.3s ease; border-radius: 0 12px 12px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); position: relative; z-index: 2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">直播过程中实时处理内容，直播结束即可产出高质量短视频</p>
+            </div>
+            
+            <div class="advantage-card fade-in hover-lift" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 220px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                <div style="display: flex; align-items: center; margin-bottom: 1.8rem; position: relative; z-index: 2;">
+                    <div class="advantage-icon" style="font-size: 2.5rem; margin-right: 1.5rem; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(90, 200, 250, 0.08)); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);">🎨</div>
+                    <h3 class="advantage-title" style="color: #1a1a1a; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 0; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">个性化定制</h3>
+                </div>
+                <p style="text-align: left; color: #4a4a4a; font-size: 1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0.01em; margin: 0; padding: 1.2rem 0; background: linear-gradient(to right, rgba(0, 113, 227, 0.08), transparent); border-left: 4px solid #0071e3; padding-left: 1.5rem; transition: all 0.3s ease; border-radius: 0 12px 12px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); position: relative; z-index: 2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">支持自定义品牌风格、模板和特效，保持品牌一致性</p>
+            </div>
+            
+            <div class="advantage-card fade-in hover-lift" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 220px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                <div style="display: flex; align-items: center; margin-bottom: 1.8rem; position: relative; z-index: 2;">
+                    <div class="advantage-icon" style="font-size: 2.5rem; margin-right: 1.5rem; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(90, 200, 250, 0.08)); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);">📊</div>
+                    <h3 class="advantage-title" style="color: #1a1a1a; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 0; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">数据驱动优化</h3>
+                </div>
+                <p style="text-align: left; color: #4a4a4a; font-size: 1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0.01em; margin: 0; padding: 1.2rem 0; background: linear-gradient(to right, rgba(0, 113, 227, 0.08), transparent); border-left: 4px solid #0071e3; padding-left: 1.5rem; transition: all 0.3s ease; border-radius: 0 12px 12px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); position: relative; z-index: 2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">基于数据分析，持续优化内容策略，提升转化效果</p>
+            </div>
+            
+            <div class="advantage-card fade-in hover-lift" style="background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(25px); border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.4); transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; min-height: 220px; padding: 2.5rem 2rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);">
+                <div style="display: flex; align-items: center; margin-bottom: 1.8rem; position: relative; z-index: 2;">
+                    <div class="advantage-icon" style="font-size: 2.5rem; margin-right: 1.5rem; display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.15), rgba(90, 200, 250, 0.08)); border-radius: 16px; box-shadow: 0 4px 16px rgba(0, 113, 227, 0.2);">🛡️</div>
+                    <h3 class="advantage-title" style="color: #1a1a1a; font-size: 1.5rem; font-weight: 700; line-height: 1.3; margin-bottom: 0; letter-spacing: -0.02em; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">安全稳定可靠</h3>
+                </div>
+                <p style="text-align: left; color: #4a4a4a; font-size: 1rem; line-height: 1.7; font-weight: 400; letter-spacing: 0.01em; margin: 0; padding: 1.2rem 0; background: linear-gradient(to right, rgba(0, 113, 227, 0.08), transparent); border-left: 4px solid #0071e3; padding-left: 1.5rem; transition: all 0.3s ease; border-radius: 0 12px 12px 0; text-shadow: 0 1px 2px rgba(0, 0, 0, 0.03); position: relative; z-index: 2; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">采用企业级安全架构，保障数据安全，系统稳定可靠</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 实际界面操作流程展示 -->
+<div class="workflow-section py-8" style="background: var(--gradient-blue-1); position: relative; overflow: hidden;">
+    <!-- 背景装饰元素 -->
+    <div class="bg-decor" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0;">
+        <div style="position: absolute; top: 10%; left: 10%; width: 200px; height: 200px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; filter: blur(50px);"></div>
+        <div style="position: absolute; bottom: 10%; right: 10%; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.03); border-radius: 50%; filter: blur(70px);"></div>
+    </div>
+    
+    <div class="container" style="position: relative; z-index: 1;">
+         <!-- 标题区域 -->
+         <div class="title-section" style="text-align: center; margin-top: 2rem; margin-bottom: 3rem;">
+             <h2 class="section-title fade-in" style="font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">实际界面操作流程展示</h2>
+             <div class="title-decoration" style="width: 60px; height: 3px; background: linear-gradient(90deg, #0071e3, #5ac8fa); margin: 0 auto 1.5rem; border-radius: 2px;"></div>
+             <p class="section-subtitle fade-in" style="font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); text-align: center; max-width: 800px; margin: 0 auto; line-height: 1.6;">直观的操作流程，让您快速上手iClip3.0，体验高效智能的短视频创作过程</p>
+         </div>
+        
+        <!-- 界面操作流程图片 -->
+        <div class="card-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto;">
+            <!-- 操作流程1 -->
+            <div class="apple-card workflow-card fade-in" style="background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-radius: 16px; padding: 1.75rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <!-- 悬浮装饰元素 -->
+                <div class="card-hover-decoration" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), transparent); border-radius: 0 0 0 100px; transition: opacity 0.4s ease;"></div>
+                
+                <!-- 序号标签 -->
+                <div class="step-number" style="position: absolute; top: 1rem; left: 1rem; width: 28px; height: 28px; background: #0071e3; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600;">1</div>
+                
+                <!-- 图片容器 -->
+                <div class="image-container" style="width: 100%; height: 230px; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 247, 0.7); border-radius: 12px; margin-bottom: 1.5rem; transition: background-color 0.3s ease;">
+                    <img src="WX20250422-194231@2x.png" alt="智能体自动剪辑成片" style="max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.4s ease;">
+                </div>
+                
+                <!-- 内容区域 -->
+                <div class="case-content" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; line-height: 1.4;">智能体自动剪辑成片</h3>
+                    <p style="font-size: 0.85rem; color: #6e6e73; line-height: 1.5;">AI智能体根据内容自动剪辑，无需人工干预</p>
+                </div>
+            </div>
+            
+            <!-- 操作流程2 -->
+            <div class="apple-card workflow-card fade-in" style="background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-radius: 16px; padding: 1.75rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <div class="card-hover-decoration" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), transparent); border-radius: 0 0 0 100px; transition: opacity 0.4s ease;"></div>
+                <div class="step-number" style="position: absolute; top: 1rem; left: 1rem; width: 28px; height: 28px; background: #0071e3; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600;">2</div>
+                <div class="image-container" style="width: 100%; height: 230px; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 247, 0.7); border-radius: 12px; margin-bottom: 1.5rem; transition: background-color 0.3s ease;">
+                    <img src="WX20250422-194357@2x.png" alt="直播内容智能拆条" style="max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.4s ease;">
+                </div>
+                <div class="case-content" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; line-height: 1.4;">直播内容智能拆条</h3>
+                    <p style="font-size: 0.85rem; color: #6e6e73; line-height: 1.5;">自动分类管理高光片段，不错过任何精彩瞬间</p>
+                </div>
+            </div>
+            
+            <!-- 操作流程3 -->
+            <div class="apple-card workflow-card fade-in" style="background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-radius: 16px; padding: 1.75rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <div class="card-hover-decoration" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), transparent); border-radius: 0 0 0 100px; transition: opacity 0.4s ease;"></div>
+                <div class="step-number" style="position: absolute; top: 1rem; left: 1rem; width: 28px; height: 28px; background: #0071e3; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 600;">3</div>
+                <div class="image-container" style="width: 100%; height: 230px; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 247, 0.7); border-radius: 12px; margin-bottom: 1.5rem; transition: background-color 0.3s ease;">
+                    <img src="wechat_2025-08-26_181811_508.png" alt="智能分段拆解" style="max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.4s ease;">
+                </div>
+                <div class="case-content" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; line-height: 1.4;">智能分段拆解</h3>
+                    <p style="font-size: 0.85rem; color: #6e6e73; line-height: 1.5;">智能分析画面和语句，精准分段智能提取高光时刻</p>
+                </div>
+            </div>
+            
+            <!-- 功能界面1 -->
+            <div class="apple-card workflow-card fade-in" style="background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-radius: 16px; padding: 1.75rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <div class="card-hover-decoration" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), transparent); border-radius: 0 0 0 100px; transition: opacity 0.4s ease;"></div>
+                <div class="feature-badge" style="position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, #5856d6, #af52de); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">功能界面</div>
+                <div class="image-container" style="width: 100%; height: 230px; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 247, 0.7); border-radius: 12px; margin-bottom: 1.5rem; transition: background-color 0.3s ease;">
+                    <img src="发布功能界面.png" alt="发布功能界面" style="max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.4s ease;">
+                </div>
+                <div class="case-content" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; line-height: 1.4;">发布功能界面</h3>
+                    <p style="font-size: 0.85rem; color: #6e6e73; line-height: 1.5;">一键发布自动定时挂车，官方授权接口，更稳定更高效</p>
+                </div>
+            </div>
+            
+            <!-- 功能界面2 -->
+            <div class="apple-card workflow-card fade-in" style="background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-radius: 16px; padding: 1.75rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <div class="card-hover-decoration" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), transparent); border-radius: 0 0 0 100px; transition: opacity 0.4s ease;"></div>
+                <div class="feature-badge" style="position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, #5856d6, #af52de); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">功能界面</div>
+                <div class="image-container" style="width: 100%; height: 230px; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 247, 0.7); border-radius: 12px; margin-bottom: 1.5rem; transition: background-color 0.3s ease;">
+                    <img src="直播录制界面.png" alt="直播推流界面" style="max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.4s ease;">
+                </div>
+                <div class="case-content" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; line-height: 1.4;">直播推流界面</h3>
+                    <p style="font-size: 0.9rem; color: #6e6e73; line-height: 1.5;">支持多个媒体多种方式上传，url，本地文件，obs推流</p>
+                </div>
+            </div>
+            
+            <!-- 功能界面3 -->
+            <div class="apple-card workflow-card fade-in" style="background: rgba(255, 255, 255, 0.97); backdrop-filter: blur(12px); border-radius: 16px; padding: 1.75rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <div class="card-hover-decoration" style="position: absolute; top: 0; right: 0; width: 100px; height: 100px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.05), transparent); border-radius: 0 0 0 100px; transition: opacity 0.4s ease;"></div>
+                <div class="feature-badge" style="position: absolute; top: 1rem; right: 1rem; background: linear-gradient(135deg, #5856d6, #af52de); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">功能界面</div>
+                <div class="image-container" style="width: 100%; height: 230px; display: flex; align-items: center; justify-content: center; background: rgba(245, 245, 247, 0.7); border-radius: 12px; margin-bottom: 1.5rem; transition: background-color 0.3s ease;">
+                    <img src="专有名称，敏感词配置.png" alt="匹配标签界面" style="max-width: 90%; max-height: 90%; object-fit: contain; transition: transform 0.4s ease;">
+                </div>
+                <div class="case-content" style="text-align: center;">
+                    <h3 style="font-size: 1.1rem; font-weight: 600; color: #1d1d1f; margin-bottom: 0.5rem; line-height: 1.4;">匹配标签界面</h3>
+                    <p style="font-size: 0.9rem; color: #6e6e73; line-height: 1.5;">自定义智能标签，专有名词，敏感词，更懂你</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 添加交互脚本 -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // 为所有工作流卡片添加悬停效果
+                const workflowCards = document.querySelectorAll('.workflow-card');
+                workflowCards.forEach(card => {
+                    card.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-8px)';
+                        this.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.15)';
+                        const img = this.querySelector('img');
+                        img.style.transform = 'scale(1.05)';
+                        const imageContainer = this.querySelector('.image-container');
+                        imageContainer.style.background = 'rgba(245, 245, 247, 0.9)';
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0)';
+                        this.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
+                        const img = this.querySelector('img');
+                        img.style.transform = 'scale(1)';
+                        const imageContainer = this.querySelector('.image-container');
+                        imageContainer.style.background = 'rgba(245, 245, 247, 0.7)';
+                    });
+                });
+            });
+        </script>
+    </div>
+</div>
+
+<!-- 产品对比：建立信任 -->
+<div class="comparison-section py-12" style="background: var(--gradient-blue-3); position: relative; overflow: hidden;">
+    <!-- 背景装饰元素 -->
+    <div class="bg-decor" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 0;">
+        <div style="position: absolute; top: 20%; left: 15%; width: 250px; height: 250px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; filter: blur(60px);"></div>
+        <div style="position: absolute; bottom: 20%; right: 15%; width: 300px; height: 300px; background: rgba(0, 113, 227, 0.1); border-radius: 50%; filter: blur(80px);"></div>
+    </div>
+    
+    <div class="container" style="position: relative; z-index: 1;">
+         <!-- 标题区域 -->
+         <div class="title-section" style="text-align: center; margin-top: 2rem; margin-bottom: 3rem;">
+             <h2 class="section-title fade-in visible" style="font-size: clamp(2rem, 4vw, 2.8rem); margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">为什么选择 iClip 3.0？</h2>
+             <div class="title-decoration" style="width: 80px; height: 4px; background: linear-gradient(90deg, #0071e3, #5ac8fa); margin: 0 auto 1.5rem; border-radius: 2px;"></div>
+             <p class="section-subtitle fade-in visible" style="font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); text-align: center; max-width: 800px; margin: 0 auto; line-height: 1.6;">对比传统制作方式和其他解决方案，iClip 3.0优势明显</p>
+         </div>
+        
+        <!-- 对比卡片 -->
+        <div class="card-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1300px; margin: 0 auto;">
+            <!-- 传统制作方式卡片 -->
+            <div class="comparison-card shadow-sm fade-in visible" style="flex: 1; min-width: 300px; max-width: 380px; padding: 2rem; border-radius: 16px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <!-- 卡片装饰元素 -->
+                <div class="card-decoration" style="position: absolute; top: 0; right: 0; width: 120px; height: 120px; background: linear-gradient(135deg, rgba(255, 59, 48, 0.05), transparent); border-radius: 0 0 0 120px;"></div>
+                
+                <h3 class="comparison-title" style="font-size: 1.45rem; color: #ff3b30; margin-bottom: 1.5rem; text-align: center; font-weight: 700; letter-spacing: -0.01em;">传统制作方式</h3>
+                <div class="comparison-icon" style="text-align: center; font-size: 3.5rem; margin-bottom: 2rem;">😰</div>
+                <div class="comparison-features" style="text-align: center; margin-bottom: 2rem; padding: 0 1rem;">
+                    <p style="margin-bottom: 1rem; font-weight: 600; color: #1d1d1f; font-size: 1.1rem;">人力成本高</p>
+                    <p style="margin-bottom: 1rem; color: #86868b; font-size: 1rem; line-height: 1.6;">直播场控、视频剪辑、内容运营、数据分析</p>
+                    <p style="margin-bottom: 1rem; color: #86868b; font-size: 1rem; line-height: 1.6;">效率低下，容易错过营销时机</p>
+                    <p style="color: #86868b; font-size: 1rem; line-height: 1.6;">质量不稳定，缺乏一致性</p>
+                </div>
+                <div style="background: rgba(255, 59, 48, 0.08); border-radius: 10px; padding: 1rem; display: inline-block; margin: 0 auto; border-left: 3px solid #ff3b30;">
+                    <p style="color: #ff3b30; font-weight: 700; font-size: 1.1rem;">一天 3-5 条切片视频</p>
+                </div>
+            </div>
+            
+            <!-- iClip 3.0 卡片 -->
+            <div class="comparison-card highlight fade-in visible" style="flex: 1; min-width: 300px; max-width: 380px; padding: 2rem; border-radius: 16px; background: white; box-shadow: 0 15px 40px rgba(0, 113, 227, 0.25); border: 2px solid var(--primary-blue-light); transform: translateY(-10px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; z-index: 10;">
+                <!-- 卡片装饰元素 -->
+                <div class="card-decoration" style="position: absolute; top: 0; right: 0; width: 120px; height: 120px; background: linear-gradient(135deg, rgba(0, 113, 227, 0.08), transparent); border-radius: 0 0 0 120px;"></div>
+                
+                <!-- 推荐标签 -->
+                <div class="recommended-badge" style="position: absolute; top: 1.5rem; right: 1.5rem; background: linear-gradient(135deg, #0071e3, #5ac8fa); color: white; padding: 0.35rem 0.9rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);">
+                    推荐选择
+                </div>
+                
+                <h3 class="comparison-title" style="font-size: 1.45rem; margin-bottom: 1.5rem; text-align: center; font-weight: 700; letter-spacing: -0.01em; color: #0071e3;">iClip 3.0</h3>
+                <div class="comparison-icon" style="text-align: center; font-size: 3.5rem; margin-bottom: 2rem;">🚀</div>
+                <div class="comparison-features" style="text-align: center; margin-bottom: 2rem; padding: 0 1rem;">
+                    <p style="margin-bottom: 1rem; font-weight: 600; color: #1d1d1f; font-size: 1.1rem;">全自动AI一键直播切片成片</p>
+                    <p style="margin-bottom: 1rem; color: #333; font-size: 1rem; line-height: 1.6;">一站式解决方案</p>
+                    <p style="margin-bottom: 1rem; color: #333; font-size: 1rem; line-height: 1.6;">高效稳定，不错过任何营销机会</p>
+                    <p style="color: #333; font-size: 1rem; line-height: 1.6;">统一标准，保证品牌一致性</p>
+                </div>
+                <div style="background: linear-gradient(135deg, rgba(0, 113, 227, 0.08), rgba(90, 200, 250, 0.05)); border-radius: 10px; padding: 1rem; display: inline-block; margin: 0 auto; border-left: 3px solid #0071e3;">
+                    <p style="color: #0071e3; font-weight: 700; font-size: 1.1rem;">一天 300-500 条切片视频</p>
+                </div>
+            </div>
+            
+            <!-- 多工具杂烩卡片 -->
+            <div class="comparison-card bg-white shadow-sm fade-in visible" style="flex: 1; min-width: 300px; max-width: 380px; padding: 2rem; border-radius: 16px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); position: relative; overflow: hidden;">
+                <!-- 卡片装饰元素 -->
+                <div class="card-decoration" style="position: absolute; top: 0; right: 0; width: 120px; height: 120px; background: linear-gradient(135deg, rgba(255, 149, 0, 0.05), transparent); border-radius: 0 0 0 120px;"></div>
+                
+                <h3 class="comparison-title" style="font-size: 1.45rem; color: #ff9500; margin-bottom: 1.5rem; text-align: center; font-weight: 700; letter-spacing: -0.01em;">多工具杂烩</h3>
+                <div class="comparison-icon" style="text-align: center; font-size: 3.5rem; margin-bottom: 2rem;">😵</div>
+                <div class="comparison-features" style="text-align: center; margin-bottom: 2rem; padding: 0 1rem;">
+                    <p style="margin-bottom: 1rem; font-weight: 600; color: #1d1d1f; font-size: 1.1rem;">核心痛点：素材管理散乱</p>
+                    <p style="margin-bottom: 1rem; color: #86868b; font-size: 1rem; line-height: 1.6;">制作流程繁琐、效率低</p>
+                    <p style="margin-bottom: 1rem; color: #86868b; font-size: 1rem; line-height: 1.6;">需要人工干预，无法完全自动化</p>
+                    <p style="color: #86868b; font-size: 1rem; line-height: 1.6;">各工具之间协作困难</p>
+                </div>
+                <div style="background: rgba(255, 149, 0, 0.08); border-radius: 10px; padding: 1rem; display: inline-block; margin: 0 auto; border-left: 3px solid #ff9500;">
+                    <p style="color: #ff9500; font-weight: 700; font-size: 1.1rem;">一天 30-50 条切片视频</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加交互脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有对比卡片添加悬停效果
+            const comparisonCards = document.querySelectorAll('.comparison-card:not(.highlight)');
+            comparisonCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                    this.style.boxShadow = '0 12px 30px rgba(0, 0, 0, 0.12)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.08)';
+                });
+            });
+            
+            // 为高亮卡片添加更强的悬停效果
+            const highlightCard = document.querySelector('.comparison-card.highlight');
+            if (highlightCard) {
+                highlightCard.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px)';
+                    this.style.boxShadow = '0 20px 50px rgba(0, 113, 227, 0.3)';
+                });
+                
+                highlightCard.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 15px 40px rgba(0, 113, 227, 0.25)';
+                });
+            }
+        });
+    </script>
+</div>
+
+<!-- 客户案例：证明价值 -->
+<div class="cases-section py-6" style="background: var(--gradient-blue-2);">
+    <div class="container">
+         <h2 class="section-title fade-in" style="font-size: clamp(2rem, 4vw, 2.8rem); text-align: center; margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">成功案例</h2>
+         <p class="section-subtitle fade-in" style="font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">iClip 3.0已经帮助众多企业实现了短视频营销的突破
+        
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <img src="案例墙.png" alt="客户成功案例墙" style="max-width: 100%; height: auto; border-radius: 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);">
+        </div>
+        
+        <div class="card-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+            <div class="case-card fade-in" style="flex: 1; min-width: 280px; max-width: 350px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <img src="wechat_2025-08-27_122733_688.png" alt="头部代运营公司成功案例" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;">
+                <div class="case-content" style="text-align: center;">
+                    <h3 class="case-title" style="margin-bottom: 0.8rem; font-size: 1.4rem; font-weight: 700; color: #1d1d1f; letter-spacing: -0.01em; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">某头部代运营公司</h3>
+                    <div class="case-result" style="font-size: 2.5rem; font-weight: bold; color: #0071e3; margin-bottom: 0.5rem;">300%</div>
+                    <p style="color: #86868b;">客户品牌曝光量增长，转化率提升35%，内容制作效率提升8倍</p>
+                </div>
+            </div>
+            <div class="case-card fade-in" style="flex: 1; min-width: 280px; max-width: 350px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <img src="wechat_2025-08-27_122727_213.png" alt="MCN机构成功案例" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;">
+                <div class="case-content" style="text-align: center;">
+                    <h3 class="case-title" style="margin-bottom: 0.8rem; font-size: 1.4rem; font-weight: 700; color: #1d1d1f; letter-spacing: -0.01em; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">某MCN机构</h3>
+                    <div class="case-result" style="font-size: 2.5rem; font-weight: bold; color: #0071e3; margin-bottom: 0.5rem;">100%</div>
+                    <p style="color: #86868b;">旗下达人视频产出量增长，粉丝互动率提升40%，内容制作成本降低60%</p>
+                </div>
+            </div>
+            <div class="case-card fade-in" style="flex: 1; min-width: 280px; max-width: 350px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border-radius: 12px; padding: 1.5rem; border: 1px solid rgba(255, 255, 255, 0.2); transition: transform 0.3s ease, box-shadow 0.3s ease;">
+                <img src="wechat_2025-08-27_122720_712.png" alt="头部品牌成功案例" style="width: 100%; height: auto; border-radius: 8px; margin-bottom: 1rem;">
+                <div class="case-content" style="text-align: center;">
+                    <h3 class="case-title" style="margin-bottom: 0.8rem; font-size: 1.4rem; font-weight: 700; color: #1d1d1f; letter-spacing: -0.01em; text-shadow: 0 1px 2px rgba(0,0,0,0.05);">某知名头部品牌</h3>
+                    <div class="case-result" style="font-size: 2.5rem; font-weight: bold; color: #0071e3; margin-bottom: 0.5rem;">10x</div>
+                    <p style="color: #86868b;">直播切片内容发布速度提升，粉丝互动率提升50%，销售额增长45%</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- CTA区域：促进行动 -->
+    <div class="cta-section" id="contact" style="background: var(--gradient-blue-4); padding: 6rem 0; position: relative; overflow: hidden;">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 50%);"></div>
+        <div class="container" style="position: relative; z-index: 1;">
+             <h2 class="cta-title fade-in" style="font-size: clamp(2rem, 4vw, 2.8rem); text-align: center; margin-bottom: 1.5rem; color: white; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(255,255,255,1)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">准备开始您的智能短视频营销之旅？</h2>
+             <p class="cta-subtitle fade-in" style="font-size: clamp(1.1rem, 1.8vw, 1.3rem); color: var(--text-secondary); text-align: center; margin-bottom: 3rem; max-width: 800px; margin-left: auto; margin-right: auto; line-height: 1.6;">联系我们的专业团队，获取个性化解决方案，开启短视频营销新篇章
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <a href="#contact" class="btn btn-primary" style="font-size: 1.1rem; padding: 14px 28px; margin-right: 1rem;">立即咨询</a>
+            <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" class="btn btn-secondary" style="font-size: 1.1rem; padding: 14px 28px; background: rgba(255, 255, 255, 0.1); color: white; border: 1px solid rgba(255, 255, 255, 0.3); backdrop-filter: blur(10px);">查看详细文档</a>
+        </div>
+        
+        <div style="display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; background: rgba(0, 31, 63, 0.5); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 16px; padding: 2rem; margin: 2rem auto; max-width: 900px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);">
+            <div class="fade-in" style="text-align: center; min-width: 200px;">
+                <div style="font-size: 1rem; color: rgba(0, 113, 227, 0.9); margin-bottom: 0.5rem; font-weight: 600;">大客户经理</div>
+                <div style="font-weight: 700; color: white; font-size: 1.2rem;">xiaoyan</div>
+            </div>
+            <div class="fade-in" style="text-align: center; min-width: 200px;">
+                <div style="font-size: 1rem; color: rgba(0, 113, 227, 0.9); margin-bottom: 0.5rem; font-weight: 600;">联系电话</div>
+                <div style="font-weight: 700; color: white; font-size: 1.2rem;">131-6238-5783</div>
+            </div>
+            <div class="fade-in" style="text-align: center; min-width: 200px;">
+                <div style="font-size: 1rem; color: rgba(0, 113, 227, 0.9); margin-bottom: 0.5rem; font-weight: 600;">邮箱地址</div>
+                <div style="font-weight: 700; color: white; font-size: 1.2rem;">zhouxiaoyan@infimind.com</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<footer class="footer" style="background: var(--gradient-blue-3); padding: 2rem 0;">
+    <div class="container" style="text-align: center;">
+        <div class="footer-logo" style="font-size: 1.2rem; font-weight: bold; margin-bottom: 0.5rem; color: white;">极睿直播智能体 iClip 3.0</div>
+          <div class="footer-company" style="font-size: 1rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 0.5rem;">极睿科技 infimind - AIGC赋予零售全新可能</div>
+          <div style="margin-bottom: 1rem;">
+              <a href="https://nd7xluyl82.feishu.cn/docx/PuQ9dTK3SoHg0ZxicJLcjgRHnwh" target="_blank" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.9rem; margin-right: 1rem;">📋 产品详细文档</a>
+              <a href="https://www.infimind.com" target="_blank" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.9rem;">🌐 官方网站</a>
+          </div>
+          <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.7);">&copy; 2025 极睿科技. 保留所有权利.</div>
+    </div>
+</footer>
+
+<script>
+    // 滚动动画
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, observerOptions);
+
+    // 观察所有需要动画的元素
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    // 平滑滚动
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // 保持数字固定，不执行动画
+    function keepNumbersStatic() {
+        // 数字保持静态显示，无需动画效果
+    }
+
+    // 视差滚动效果
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.hero::before');
+        
+        parallaxElements.forEach(element => {
+            const speed = 0.5;
+            element.style.transform = `translateY(${(scrolled * speed) % 300}px)`;
+        });
+    });
+</script>
+</body>
+</html>
