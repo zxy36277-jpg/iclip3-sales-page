@@ -1,0 +1,13 @@
+{
+  "name": "iclip3-sales-page",
+  "version": "1.0.0",
+  "description": "iClip 3.0 短视频智能剪辑平台销售页面",
+  "main": "infimind_iclip3.0_sales.html",
+  "scripts": {
+    "start": "npx http-server . -p 8080 -o",
+    "deploy": "echo 'Ready for deployment to GitHub Pages or Netlify'"
+  },
+  "keywords": ["iclip", "短视频", "智能剪辑", "AI"],
+  "author": "极睿科技",
+  "license": "MIT"
+}
