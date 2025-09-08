@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中文文件名测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-image {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .info {
+            color: blue;
+            font-weight: bold;
+        }
+        .warning {
+            color: orange;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>中文文件名图片测试</h1>
+    
+    <div class="test-section">
+        <h2>问题诊断</h2>
+        <p class="warning">⚠️ 发现所有图片文件名都包含中文字符，这可能是GitHub Pages无法显示图片的原因！</p>
+        <p class="info">GitHub Pages对中文文件名的支持有限，建议将图片文件名改为英文。</p>
+    </div>
+
+    <div class="test-section">
+        <h2>测试1: 中文文件名 (可能失败)</h2>
+        <p class="info">文件路径: images/产品全景图.png</p>
+        <img src="images/产品全景图.png" alt="产品全景图" class="test-image" 
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 中文文件名图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 中文文件名图片加载失败</span>'">
+        <div id="status1">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试2: 外部测试图片 (应该成功)</h2>
+        <p class="info">文件路径: https://via.placeholder.com/300x200/667eea/ffffff?text=Test+Image</p>
+        <img src="https://via.placeholder.com/300x200/667eea/ffffff?text=Test+Image" alt="外部测试图片" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 外部图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 外部图片加载失败</span>'">
+        <div id="status2">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>解决方案</h2>
+        <p class="info">需要将所有图片文件名改为英文，例如：</p>
+        <ul>
+            <li>产品全景图.png → product-overview.png</li>
+            <li>功能一.png → feature-1.png</li>
+            <li>技术.png → technology.png</li>
+            <li>工作流对比.png → workflow-comparison.png</li>
+        </ul>
+    </div>
+
+    <script>
+        console.log('中文文件名测试页面加载完成');
+        
+        // 检查所有图片的加载状态
+        window.addEventListener('load', function() {
+            console.log('所有资源加载完成');
+            
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                console.log(`图片 ${index + 1}:`, {
+                    src: img.src,
+                    complete: img.complete,
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight,
+                    alt: img.alt
+                });
+            });
+        });
+
+        // 监听图片加载错误
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                console.error('图片加载错误:', e.target.src);
+            }
+        }, true);
+    </script>
+</body>
+</html>
