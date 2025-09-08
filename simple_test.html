@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单图片测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-image {
+            max-width: 400px;
+            height: auto;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>简单图片测试 - 不使用懒加载</h1>
+    
+    <div class="test-container">
+        <h2>产品全景图 (PNG)</h2>
+        <img src="images/产品全景图.png" alt="产品全景图" class="test-image">
+    </div>
+    
+    <div class="test-container">
+        <h2>产品全景图 (WebP)</h2>
+        <img src="images/产品全景图.webp" alt="产品全景图" class="test-image">
+    </div>
+    
+    <div class="test-container">
+        <h2>产品全景图缩略图 (JPG)</h2>
+        <img src="images/产品全景图_thumb.jpg" alt="产品全景图缩略图" class="test-image">
+    </div>
+    
+    <div class="test-container">
+        <h2>功能一 (PNG)</h2>
+        <img src="images/功能一.png" alt="功能一" class="test-image">
+    </div>
+    
+    <div class="test-container">
+        <h2>技术架构 (PNG)</h2>
+        <img src="images/技术.png" alt="技术架构" class="test-image">
+    </div>
+    
+    <script>
+        console.log('页面加载完成');
+        
+        // 检查图片加载状态
+        document.querySelectorAll('img').forEach((img, index) => {
+            img.onload = function() {
+                console.log(`图片 ${index + 1} 加载成功:`, img.src);
+            };
+            img.onerror = function() {
+                console.error(`图片 ${index + 1} 加载失败:`, img.src);
+            };
+        });
+    </script>
+</body>
+</html>
