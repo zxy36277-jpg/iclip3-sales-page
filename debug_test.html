@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片加载调试测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .test-image {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ddd;
+            margin: 10px 0;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .info {
+            color: blue;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>图片加载调试测试</h1>
+    
+    <div class="test-section">
+        <h2>测试1: 产品全景图 (PNG)</h2>
+        <p class="info">文件路径: images/产品全景图.png</p>
+        <img src="images/产品全景图.png" alt="产品全景图" class="test-image" 
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 图片加载失败</span>'">
+        <div id="status1">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试2: 产品全景图 (WebP)</h2>
+        <p class="info">文件路径: images/产品全景图.webp</p>
+        <img src="images/产品全景图.webp" alt="产品全景图" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 图片加载失败</span>'">
+        <div id="status2">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试3: 产品全景图缩略图 (JPG)</h2>
+        <p class="info">文件路径: images/产品全景图_thumb.jpg</p>
+        <img src="images/产品全景图_thumb.jpg" alt="产品全景图缩略图" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 图片加载失败</span>'">
+        <div id="status3">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试4: 功能一 (PNG)</h2>
+        <p class="info">文件路径: images/功能一.png</p>
+        <img src="images/功能一.png" alt="功能一" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 图片加载失败</span>'">
+        <div id="status4">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试5: 技术架构 (PNG)</h2>
+        <p class="info">文件路径: images/技术.png</p>
+        <img src="images/技术.png" alt="技术架构" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 图片加载失败</span>'">
+        <div id="status5">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试6: 主标题图片 (PNG)</h2>
+        <p class="info">文件路径: images/极睿直播智能体 iClip 3.0 - 短视频智能剪辑平台.png</p>
+        <img src="images/极睿直播智能体 iClip 3.0 - 短视频智能剪辑平台.png" alt="主标题" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 图片加载失败</span>'">
+        <div id="status6">加载中...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>测试7: 外部图片 (测试网络连接)</h2>
+        <p class="info">文件路径: https://via.placeholder.com/300x200/667eea/ffffff?text=Test+Image</p>
+        <img src="https://via.placeholder.com/300x200/667eea/ffffff?text=Test+Image" alt="外部测试图片" class="test-image"
+             onload="this.nextElementSibling.innerHTML='<span class=success>✅ 外部图片加载成功</span>'"
+             onerror="this.nextElementSibling.innerHTML='<span class=error>❌ 外部图片加载失败</span>'">
+        <div id="status7">加载中...</div>
+    </div>
+
+    <script>
+        console.log('调试页面加载完成');
+        
+        // 检查所有图片的加载状态
+        window.addEventListener('load', function() {
+            console.log('所有资源加载完成');
+            
+            const images = document.querySelectorAll('img');
+            images.forEach((img, index) => {
+                console.log(`图片 ${index + 1}:`, {
+                    src: img.src,
+                    complete: img.complete,
+                    naturalWidth: img.naturalWidth,
+                    naturalHeight: img.naturalHeight,
+                    alt: img.alt
+                });
+            });
+        });
+
+        // 监听图片加载错误
+        document.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                console.error('图片加载错误:', e.target.src);
+            }
+        }, true);
+    </script>
+</body>
+</html>
