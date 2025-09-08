@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极睿直播智能体 iClip 3.0 - 短视频智能剪辑平台</title>
+    <meta name="description" content="极睿直播智能体 iClip 3.0 是专业的短视频智能剪辑平台，提供AI驱动的直播内容处理、智能拆条、素材管理等功能。">
+    <meta name="keywords" content="iClip 3.0, 短视频剪辑, 智能剪辑, 直播内容处理, AI剪辑, 视频制作">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zxy36277-jpg.github.io/iclip3-sales-page/">
+    <meta property="og:title" content="极睿直播智能体 iClip 3.0 - 短视频智能剪辑平台">
+    <meta property="og:description" content="专业的短视频智能剪辑平台，提供AI驱动的直播内容处理、智能拆条、素材管理等功能。">
+    <meta property="og:image" content="https://zxy36277-jpg.github.io/iclip3-sales-page/images/产品全景图.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zxy36277-jpg.github.io/iclip3-sales-page/">
+    <meta property="twitter:title" content="极睿直播智能体 iClip 3.0 - 短视频智能剪辑平台">
+    <meta property="twitter:description" content="专业的短视频智能剪辑平台，提供AI驱动的直播内容处理、智能拆条、素材管理等功能。">
+    <meta property="twitter:image" content="https://zxy36277-jpg.github.io/iclip3-sales-page/images/产品全景图.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 头部样式 */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav a:hover {
+            color: #667eea;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            background: white;
+            margin: 20px auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #667eea;
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border-color: white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #667eea;
+            transform: translateY(-3px);
+        }
+
+        /* 产品展示区域 */
+        .product-showcase {
+            padding: 80px 0;
+            background: #f8f9ff;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 60px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .product-image {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-image img:hover {
+            transform: scale(1.02);
+        }
+
+        /* 功能特性区域 */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #f0f0f0;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .feature-image {
+            margin: 20px 0;
+        }
+
+        .feature-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 技术架构区域 */
+        .tech-architecture {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+        }
+
+        .tech-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .tech-text h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .tech-text p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .tech-list {
+            list-style: none;
+        }
+
+        .tech-list li {
+            padding: 10px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .tech-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .tech-image {
+            text-align: center;
+        }
+
+        .tech-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 工作流对比区域 */
+        .workflow-comparison {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .comparison-card {
+            background: #f8f9ff;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card.traditional {
+            border-color: #ff6b6b;
+        }
+
+        .comparison-card.iclip {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #f8f9ff 0%, #e8f0ff 100%);
+        }
+
+        .comparison-card h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .comparison-card.traditional h3 {
+            color: #ff6b6b;
+        }
+
+        .comparison-card.iclip h3 {
+            color: #667eea;
+        }
+
+        .comparison-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .comparison-list li {
+            padding: 8px 0;
+            color: #555;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .comparison-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .comparison-card.traditional .comparison-list li::before {
+            color: #ff6b6b;
+        }
+
+        .comparison-image {
+            margin: 30px 0;
+        }
+
+        .comparison-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 功能演示区域 */
+        .demo-section {
+            padding: 80px 0;
+            background: #f8f9ff;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .demo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .demo-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-image img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .demo-card:hover .demo-image img {
+            transform: scale(1.05);
+        }
+
+        .demo-content {
+            padding: 30px;
+        }
+
+        .demo-content h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .demo-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 成功案例区域 */
+        .success-cases {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .case-card {
+            background: #f8f9ff;
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .case-image {
+            margin: 20px 0;
+        }
+
+        .case-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .case-card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .case-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 页脚 */
+        .footer {
+            background: #333;
+            color: white;
+            padding: 60px 0 30px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            line-height: 1.6;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 30px;
+            color: #999;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .tech-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        /* 图片加载样式 */
+        img {
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        img[data-src] {
+            opacity: 0.3;
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">iClip 3.0</div>
+                <nav class="nav">
+                    <a href="#features">功能特性</a>
+                    <a href="#tech">技术架构</a>
+                    <a href="#demo">功能演示</a>
+                    <a href="#cases">成功案例</a>
+                    <a href="#contact">联系我们</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content fade-in-up">
+                    <h1>极睿直播智能体 iClip 3.0</h1>
+                    <p>专业的短视频智能剪辑平台，基于多模态大模型和多智能体架构，为直播内容提供智能处理、自动拆条、素材管理等全方位解决方案</p>
+                    <div class="cta-buttons">
+                        <a href="#demo" class="btn btn-primary">查看演示</a>
+                        <a href="#contact" class="btn btn-secondary">立即体验</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 产品展示 -->
+        <section class="product-showcase">
+            <div class="container">
+                <h2 class="section-title">产品全景</h2>
+                <p class="section-subtitle">基于先进的多模态大模型技术，为直播内容提供智能化处理解决方案</p>
+                <div class="product-image">
+                    <img src="images/产品全景图.png" alt="iClip3.0产品全景图">
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能特性 -->
+        <section class="features" id="features">
+            <div class="container">
+                <h2 class="section-title">核心功能</h2>
+                <p class="section-subtitle">四大核心功能模块，全方位提升直播内容处理效率</p>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎯</div>
+                        <h3>智能内容处理</h3>
+                        <p>基于多模态大模型，智能识别直播内容，自动提取关键信息，生成精准标签和摘要</p>
+                        <div class="feature-image">
+                            <img src="images/功能一.png" alt="智能内容处理">
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📹</div>
+                        <h3>直播录制内容识别</h3>
+                        <p>实时识别直播内容，自动标记重要片段，支持多场景智能切换和内容分类</p>
+                        <div class="feature-image">
+                            <img src="images/功能2.png" alt="直播录制内容识别">
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">📁</div>
+                        <h3>素材资源管理</h3>
+                        <p>智能素材库管理，自动分类整理，支持快速检索和批量处理，提升工作效率</p>
+                        <div class="feature-image">
+                            <img src="images/功能3.png" alt="素材资源管理">
+                        </div>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">🏷️</div>
+                        <h3>商品分类管理</h3>
+                        <p>智能商品识别和分类，自动生成商品标签，支持多维度管理和统计分析</p>
+                        <div class="feature-image">
+                            <img src="images/功能4.png" alt="商品分类管理">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 技术架构 -->
+        <section class="tech-architecture" id="tech">
+            <div class="container">
+                <h2 class="section-title">技术架构</h2>
+                <p class="section-subtitle">基于多模态大模型和多智能体架构的先进技术体系</p>
+                
+                <div class="tech-content">
+                    <div class="tech-text">
+                        <h2>多模态大模型驱动</h2>
+                        <p>iClip 3.0 采用先进的多模态大模型技术，能够同时处理视频、音频、文本等多种数据类型，实现真正的智能化内容理解。</p>
+                        <ul class="tech-list">
+                            <li>多模态融合处理</li>
+                            <li>实时内容理解</li>
+                            <li>智能标签生成</li>
+                            <li>自动摘要提取</li>
+                            <li>语义分析优化</li>
+                        </ul>
+                    </div>
+                    <div class="tech-image">
+                        <img src="images/技术.png" alt="多模态大模型和多智能体架构">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作流对比 -->
+        <section class="workflow-comparison">
+            <div class="container">
+                <h2 class="section-title">工作流对比</h2>
+                <p class="section-subtitle">传统方式 vs iClip 3.0 智能处理</p>
+                
+                <div class="comparison-grid">
+                    <div class="comparison-card traditional">
+                        <h3>传统处理方式</h3>
+                        <ul class="comparison-list">
+                            <li>人工观看完整直播</li>
+                            <li>手动标记重要片段</li>
+                            <li>逐一切割视频</li>
+                            <li>手动添加标题标签</li>
+                            <li>人工分类整理</li>
+                            <li>耗时数小时</li>
+                        </ul>
+                        <div class="comparison-image">
+                            <img src="images/工作流对比.png" alt="传统工作流">
+                        </div>
+                    </div>
+
+                    <div class="comparison-card iclip">
+                        <h3>iClip 3.0 智能处理</h3>
+                        <ul class="comparison-list">
+                            <li>AI自动识别关键内容</li>
+                            <li>智能标记重要片段</li>
+                            <li>自动切割生成短视频</li>
+                            <li>AI生成标题和标签</li>
+                            <li>智能分类整理</li>
+                            <li>分钟级完成处理</li>
+                        </ul>
+                        <div class="comparison-image">
+                            <img src="images/工作流程.png" alt="iClip3.0智能工作流">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 功能演示 -->
+        <section class="demo-section" id="demo">
+            <div class="container">
+                <h2 class="section-title">功能演示</h2>
+                <p class="section-subtitle">实际应用场景展示，体验智能化处理的强大功能</p>
+                
+                <div class="demo-grid">
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/wechat_2025-08-27_122623_588.png" alt="iClip3.0功能展示">
+                        </div>
+                        <div class="demo-content">
+                            <h3>智能内容识别</h3>
+                            <p>实时识别直播内容，自动标记重要片段，支持多场景智能切换</p>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/WX20250422-194231@2x.png" alt="智能体自动剪辑成片">
+                        </div>
+                        <div class="demo-content">
+                            <h3>智能体自动剪辑成片</h3>
+                            <p>基于AI智能体，自动完成视频剪辑、转场、特效添加等复杂操作</p>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/WX20250422-194357@2x.png" alt="直播内容智能拆条">
+                        </div>
+                        <div class="demo-content">
+                            <h3>直播内容智能拆条</h3>
+                            <p>智能识别直播中的不同主题内容，自动拆分为独立的短视频片段</p>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/wechat_2025-08-26_181811_508.png" alt="智能分段拆解">
+                        </div>
+                        <div class="demo-content">
+                            <h3>智能分段拆解</h3>
+                            <p>根据内容语义自动分段，生成结构化的短视频内容</p>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/发布功能界面.png" alt="发布功能界面">
+                        </div>
+                        <div class="demo-content">
+                            <h3>一键发布功能</h3>
+                            <p>支持多平台一键发布，自动适配不同平台的格式要求</p>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/直播录制界面.png" alt="直播推流界面">
+                        </div>
+                        <div class="demo-content">
+                            <h3>直播录制界面</h3>
+                            <p>专业的直播录制界面，支持多路输入和实时处理</p>
+                        </div>
+                    </div>
+
+                    <div class="demo-card">
+                        <div class="demo-image">
+                            <img src="images/专有名称，敏感词配置.png" alt="匹配标签界面">
+                        </div>
+                        <div class="demo-content">
+                            <h3>智能标签配置</h3>
+                            <p>支持自定义标签配置，智能匹配内容标签，提升分类准确性</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 成功案例 -->
+        <section class="success-cases" id="cases">
+            <div class="container">
+                <h2 class="section-title">成功案例</h2>
+                <p class="section-subtitle">众多客户的选择，见证iClip 3.0的强大实力</p>
+                
+                <div class="cases-grid">
+                    <div class="case-card">
+                        <div class="case-image">
+                            <img src="images/案例墙.png" alt="客户成功案例墙">
+                        </div>
+                        <h3>客户成功案例墙</h3>
+                        <p>展示我们服务的各类客户，从头部代运营公司到MCN机构，从品牌方到个人创作者</p>
+                    </div>
+
+                    <div class="case-card">
+                        <div class="case-image">
+                            <img src="images/wechat_2025-08-27_122733_688.png" alt="头部代运营公司成功案例">
+                        </div>
+                        <h3>头部代运营公司</h3>
+                        <p>为头部代运营公司提供智能化内容处理解决方案，大幅提升工作效率</p>
+                    </div>
+
+                    <div class="case-card">
+                        <div class="case-image">
+                            <img src="images/wechat_2025-08-27_122727_213.png" alt="MCN机构成功案例">
+                        </div>
+                        <h3>MCN机构</h3>
+                        <p>帮助MCN机构实现内容批量处理，提升内容产出效率和质量</p>
+                    </div>
+
+                    <div class="case-card">
+                        <div class="case-image">
+                            <img src="images/wechat_2025-08-27_122720_712.png" alt="头部品牌成功案例">
+                        </div>
+                        <h3>头部品牌</h3>
+                        <p>为头部品牌提供专业的直播内容处理服务，提升品牌营销效果</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>产品信息</h3>
+                    <p>极睿直播智能体 iClip 3.0</p>
+                    <p>专业的短视频智能剪辑平台</p>
+                    <p>基于多模态大模型技术</p>
+                </div>
+                <div class="footer-section">
+                    <h3>核心功能</h3>
+                    <p>智能内容处理</p>
+                    <p>直播录制识别</p>
+                    <p>素材资源管理</p>
+                    <p>商品分类管理</p>
+                </div>
+                <div class="footer-section">
+                    <h3>联系我们</h3>
+                    <p>邮箱: contact@iclip.com</p>
+                    <p>电话: 400-123-4567</p>
+                    <p>地址: 北京市朝阳区</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 极睿直播智能体 iClip 3.0. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 简单的滚动动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in-up');
+                    }
+                });
+            }, observerOptions);
+
+            // 观察所有需要动画的元素
+            document.querySelectorAll('.feature-card, .demo-card, .case-card, .comparison-card').forEach(el => {
+                observer.observe(el);
+            });
+
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
